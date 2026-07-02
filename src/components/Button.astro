@@ -1,0 +1,115 @@
+---
+export interface Props {
+  variant?: "primary" | "secondary" | "outline" | "ghost";
+  size?: "sm" | "md" | "lg";
+  href?: string;
+  fullWidth?: boolean;
+  className?: string;
+}
+
+const { variant = "primary", size = "md", href, fullWidth = false, className = "" } = Astro.props;
+const classList = [variant, size, fullWidth ? "full-width" : "", className].filter(Boolean).join(" ");
+---
+
+{href ? (
+  <a href={href} class={classList}>
+    <slot />
+  </a>
+) : (
+  <button class={classList}>
+    <slot />
+  </button>
+)}
+
+<style>
+  a, button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    font-family: var(--font-secondary);
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: var(--radius-full);
+    transition: all var(--transition-base);
+    white-space: nowrap;
+  }
+
+  /* Sizes */
+  .sm {
+    font-size: var(--text-xs);
+    padding: 0.5rem 1.25rem;
+  }
+
+  .md {
+    font-size: var(--text-sm);
+    padding: 0.75rem 1.75rem;
+  }
+
+  .lg {
+    font-size: var(--text-base);
+    padding: 1rem 2.25rem;
+  }
+
+  /* Variants */
+  .primary {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    border-color: var(--color-primary);
+  }
+
+  .primary:hover {
+    background-color: var(--color-primary-dark);
+    border-color: var(--color-primary-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-glow);
+  }
+
+  .secondary {
+    background-color: var(--color-secondary);
+    color: var(--color-white);
+    border-color: var(--color-secondary);
+  }
+
+  .secondary:hover {
+    background-color: var(--color-secondary-light);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .outline {
+    background-color: transparent;
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+  }
+
+  .outline:hover {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    transform: translateY(-2px);
+  }
+
+  .ghost {
+    background-color: transparent;
+    color: var(--color-text);
+    border-color: transparent;
+  }
+
+  .ghost:hover {
+    color: var(--color-primary);
+  }
+
+  .full-width {
+    width: 100%;
+  }
+
+  a:focus-visible,
+  button:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+</style>

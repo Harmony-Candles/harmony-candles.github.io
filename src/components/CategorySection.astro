@@ -1,0 +1,49 @@
+---
+import SectionTitle from "./SectionTitle.astro";
+import ProductGrid from "./ProductGrid.astro";
+import Button from "./Button.astro";
+import type { Product } from "../types";
+
+export interface Props {
+  category: string;
+  products: Product[];
+  categoryNames: Record<string, string>;
+}
+
+const { category, products, categoryNames } = Astro.props;
+const sectionId = `categoria-${category}`;
+const displayName = categoryNames[category] || category;
+---
+
+<section id={sectionId} class="category-section section section-anchor">
+  <div class="container">
+    <SectionTitle
+      label={displayName}
+      title={displayName}
+      subtitle={`Descubre nuestra colección de ${displayName.toLowerCase()} cuidadosamente seleccionados para ti.`}
+    />
+
+    <ProductGrid products={products} columns={3} />
+
+    <div class="view-all">
+      <Button href={`/producto`} variant="outline" size="md">
+        Ver todos los productos
+      </Button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .category-section {
+    padding: var(--space-3xl) 0;
+  }
+
+  .category-section:nth-child(even) {
+    background-color: var(--color-bg-alt);
+  }
+
+  .view-all {
+    text-align: center;
+    margin-top: var(--space-xl);
+  }
+</style>

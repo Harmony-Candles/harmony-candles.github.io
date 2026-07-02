@@ -1,0 +1,200 @@
+/* Reveal on scroll */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal-left.revealed {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal-right.revealed {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal-scale.revealed {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Fade animations */
+.fade-in {
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+}
+
+/* Slide animations */
+.slide-up {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.slide-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Hover micro-animations */
+.hover-lift {
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.hover-scale {
+  transition: transform var(--transition-base);
+}
+
+.hover-scale:hover {
+  transform: scale(1.03);
+}
+
+.hover-glow {
+  transition: box-shadow var(--transition-base);
+}
+
+.hover-glow:hover {
+  box-shadow: var(--shadow-glow);
+}
+
+.hover-underline {
+  position: relative;
+}
+
+.hover-underline::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: var(--color-primary);
+  transition: width var(--transition-base);
+}
+
+.hover-underline:hover::after {
+  width: 100%;
+}
+
+/* Image zoom on hover */
+.img-zoom {
+  overflow: hidden;
+}
+
+.img-zoom img {
+  transition: transform var(--transition-slow);
+}
+
+.img-zoom:hover img {
+  transform: scale(1.08);
+}
+
+/* Button pulse */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(196, 154, 108, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(196, 154, 108, 0);
+  }
+}
+
+.pulse-glow {
+  animation: pulse-glow 2s infinite;
+}
+
+/* Fade in up for staggered children */
+.fade-stagger > * {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.fade-stagger.revealed > *:nth-child(1) { transition: opacity 0.5s ease 0.1s, transform 0.5s ease 0.1s; }
+.fade-stagger.revealed > *:nth-child(2) { transition: opacity 0.5s ease 0.2s, transform 0.5s ease 0.2s; }
+.fade-stagger.revealed > *:nth-child(3) { transition: opacity 0.5s ease 0.3s, transform 0.5s ease 0.3s; }
+.fade-stagger.revealed > *:nth-child(4) { transition: opacity 0.5s ease 0.4s, transform 0.5s ease 0.4s; }
+.fade-stagger.revealed > *:nth-child(5) { transition: opacity 0.5s ease 0.5s, transform 0.5s ease 0.5s; }
+.fade-stagger.revealed > *:nth-child(6) { transition: opacity 0.5s ease 0.6s, transform 0.5s ease 0.6s; }
+.fade-stagger.revealed > *:nth-child(7) { transition: opacity 0.5s ease 0.7s, transform 0.5s ease 0.7s; }
+.fade-stagger.revealed > *:nth-child(8) { transition: opacity 0.5s ease 0.8s, transform 0.5s ease 0.8s; }
+
+.fade-stagger.revealed > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Parallax light */
+.parallax {
+  will-change: transform;
+}
+
+/* Smooth scroll offset for fixed navbar */
+.section-anchor {
+  scroll-margin-top: calc(var(--navbar-height) + 20px);
+}
+
+/* Loading shimmer */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.shimmer {
+  background: linear-gradient(90deg, var(--color-bg) 25%, var(--color-bg-alt) 50%, var(--color-bg) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Entrance animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.entrance {
+  animation: fadeInUp 0.8s ease forwards;
+}
+
+.entrance-delay-1 { animation-delay: 0.2s; }
+.entrance-delay-2 { animation-delay: 0.4s; }
+.entrance-delay-3 { animation-delay: 0.6s; }

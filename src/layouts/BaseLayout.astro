@@ -1,0 +1,110 @@
+---
+import "../styles/global.css";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import FloatingWhatsappButton from "../components/FloatingWhatsappButton.astro";
+import type { NavItem } from "../types";
+
+export interface Props {
+  title: string;
+  description?: string;
+  seoTitle?: string;
+  seoDescription?: string;
+  ogImage?: string;
+  ogType?: string;
+}
+
+const {
+  title,
+  description = "Harmony Candle - Velas artesanales premium hechas a mano con amor y dedicación. Descubre nuestra colección de velas, aromas y accesorios naturales.",
+  seoTitle,
+  seoDescription,
+      ogImage = "/brand/harmony-iso-logo.png",
+  ogType = "website",
+} = Astro.props;
+
+const pageTitle = seoTitle || title;
+const pageDescription = seoDescription || description;
+
+const navItems: NavItem[] = [
+  { label: "Inicio", href: "#hero" },
+  { label: "Catálogo", href: "#catalogo" },
+  { label: "Cursos", href: "#cursos" },
+  { label: "Sobre Harmony", href: "#sobre-harmony" },
+  { label: "FAQ", href: "#faq" },
+  { label: "Contacto", href: "#contacto" },
+];
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#c49a6c" />
+
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+    <meta name="author" content="Harmony Candle" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/brand/harmony-iso-logo.png" />
+    <link rel="apple-touch-icon" href="/brand/harmony-iso-logo.png" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:image" content={`https://harmony-candles.github.io${ogImage}`} />
+    <meta property="og:url" content="https://harmony-candles.github.io" />
+    <meta property="og:locale" content="es_CO" />
+    <meta property="og:site_name" content="Harmony Candle" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
+    <meta name="twitter:image" content={`https://harmony-candles.github.io${ogImage}`} />
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json" set:html={`
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Harmony Candle",
+        "url": "https://harmony-candles.github.io",
+        "logo": "https://harmony-candles.github.io/brand/harmony-logo.png",
+        "description": "${pageDescription}",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Bogotá",
+          "addressCountry": "CO"
+        },
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+57-300-000-0000",
+          "contactType": "customer service",
+          "availableLanguage": ["Spanish"]
+        },
+        "sameAs": [
+          "https://instagram.com/harmonycandle",
+          "https://facebook.com/harmonycandle"
+        ]
+      }
+    `}></script>
+  </head>
+  <body>
+    <Header navItems={navItems} />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+    <FloatingWhatsappButton />
+
+    <script>
+      import { initApp } from "../utils/reveal";
+      initApp();
+    </script>
+  </body>
+</html>

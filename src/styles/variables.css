@@ -1,0 +1,93 @@
+:root {
+  /* Colors */
+  --color-primary: #c49a6c;
+  --color-primary-dark: #a67c4e;
+  --color-primary-light: #d4b08c;
+
+  --color-secondary: #2c2c2c;
+  --color-secondary-light: #3d3d3d;
+
+  --color-accent: #e8d5b7;
+  --color-accent-light: #f5ede3;
+
+  --color-bg: #faf8f5;
+  --color-bg-alt: #f0ebe3;
+  --color-bg-dark: #1a1a1a;
+
+  --color-text: #2c2c2c;
+  --color-text-light: #6b6b6b;
+  --color-text-lighter: #9b9b9b;
+  --color-text-inverse: #faf8f5;
+
+  --color-white: #ffffff;
+  --color-black: #000000;
+
+  --color-border: #e5ddd5;
+  --color-border-light: #f0ebe3;
+
+  --color-success: #4caf50;
+  --color-whatsapp: #25d366;
+
+  /* Typography */
+  --font-primary: "Cormorant Garamond", "Georgia", serif;
+  --font-secondary: "Montserrat", "Helvetica", "Arial", sans-serif;
+  --font-body: "Montserrat", "Helvetica", "Arial", sans-serif;
+
+  /* Font sizes */
+  --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+  --text-sm: clamp(0.875rem, 0.8rem + 0.375vw, 1rem);
+  --text-base: clamp(1rem, 0.9rem + 0.5vw, 1.125rem);
+  --text-lg: clamp(1.125rem, 1rem + 0.625vw, 1.25rem);
+  --text-xl: clamp(1.25rem, 1.1rem + 0.75vw, 1.5rem);
+  --text-2xl: clamp(1.5rem, 1.25rem + 1.25vw, 2rem);
+  --text-3xl: clamp(2rem, 1.5rem + 2.5vw, 3rem);
+  --text-4xl: clamp(2.5rem, 1.75rem + 3.75vw, 4rem);
+  --text-5xl: clamp(3rem, 2rem + 5vw, 5rem);
+  --text-6xl: clamp(3.5rem, 2.25rem + 6.25vw, 6rem);
+
+  /* Spacing */
+  --space-xs: clamp(0.25rem, 0.2rem + 0.25vw, 0.5rem);
+  --space-sm: clamp(0.5rem, 0.375rem + 0.625vw, 1rem);
+  --space-md: clamp(1rem, 0.75rem + 1.25vw, 1.5rem);
+  --space-lg: clamp(1.5rem, 1rem + 2.5vw, 2.5rem);
+  --space-xl: clamp(2rem, 1.25rem + 3.75vw, 4rem);
+  --space-2xl: clamp(3rem, 2rem + 5vw, 6rem);
+  --space-3xl: clamp(4rem, 2.5rem + 7.5vw, 8rem);
+
+  /* Border radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.12);
+  --shadow-glow: 0 4px 20px rgba(196, 154, 108, 0.3);
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-base: 300ms ease;
+  --transition-slow: 500ms ease;
+  --transition-extra-slow: 800ms ease;
+
+  /* Z-index */
+  --z-base: 1;
+  --z-dropdown: 10;
+  --z-sticky: 100;
+  --z-overlay: 200;
+  --z-modal: 300;
+  --z-toast: 400;
+
+  /* Container */
+  --container-max: 1200px;
+  --container-narrow: 900px;
+  --container-wide: 1400px;
+
+  /* Navbar */
+  --navbar-height: clamp(70px, 8vh, 100px);
+  --navbar-height-scrolled: clamp(55px, 6vh, 70px);
+}

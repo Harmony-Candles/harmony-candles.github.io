@@ -1,0 +1,199 @@
+---
+import Button from "./Button.astro";
+---
+
+<section id="hero" class="hero">
+  <div class="hero-overlay"></div>
+  <div class="hero-bg parallax"></div>
+  <div class="hero-content container">
+    <div class="hero-text">
+      <span class="hero-label entrance">Desde 2020</span>
+      <h1 class="hero-title entrance entrance-delay-1">
+        Velas artesanales que transforman espacios
+      </h1>
+      <p class="hero-subtitle entrance entrance-delay-2">
+        Descubre nuestra colección de velas y accesorios hechos a mano con materiales
+        naturales y mucho amor. Cada pieza es única, como tú.
+      </p>
+      <div class="hero-actions entrance entrance-delay-3">
+        <Button href="#catalogo" variant="primary" size="lg">
+          Explorar colección
+        </Button>
+        <Button
+          href="https://wa.me/573508573886?text=Hola%20Harmony%20🌿%20Quiero%20más%20información"
+          variant="outline"
+          size="lg"
+        >
+          Contactar
+        </Button>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-indicator">
+    <span class="scroll-text">Descubre</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      135deg,
+      rgba(26, 26, 26, 0.7) 0%,
+      rgba(26, 26, 26, 0.4) 50%,
+      rgba(26, 26, 26, 0.6) 100%
+    );
+    z-index: 1;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: -20px;
+    background:
+      url("/images/hero/hero-bg.jpg") center center / cover no-repeat;
+    z-index: 0;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+  }
+
+  .hero-text {
+    max-width: 650px;
+  }
+
+  .hero-label {
+    display: inline-block;
+    font-family: var(--font-secondary);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--color-primary-light);
+    margin-bottom: var(--space-md);
+    opacity: 0;
+  }
+
+  .hero-title {
+    font-family: var(--font-primary);
+    font-size: var(--text-6xl);
+    font-weight: 600;
+    color: var(--color-white);
+    line-height: 1.1;
+    margin-bottom: var(--space-lg);
+    opacity: 0;
+  }
+
+  .hero-subtitle {
+    font-size: var(--text-lg);
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.8;
+    margin-bottom: var(--space-xl);
+    max-width: 520px;
+    opacity: 0;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+    opacity: 0;
+  }
+
+  .entrance {
+    animation: fadeInUp 0.8s ease forwards;
+  }
+
+  .entrance-delay-1 { animation-delay: 0.3s; }
+  .entrance-delay-2 { animation-delay: 0.6s; }
+  .entrance-delay-3 { animation-delay: 0.9s; }
+
+  .scroll-indicator {
+    position: absolute;
+    bottom: var(--space-xl);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-sm);
+    animation: fadeInUp 1s ease 1.5s forwards;
+    opacity: 0;
+  }
+
+  .scroll-text {
+    font-family: var(--font-secondary);
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 30px;
+    background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.6),
+      transparent
+    );
+    animation: scrollPulse 2s ease infinite;
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 1; transform: scaleY(1); }
+    50% { opacity: 0.3; transform: scaleY(0.5); }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hero-title {
+      font-size: var(--text-4xl);
+    }
+
+    .hero-subtitle {
+      font-size: var(--text-base);
+    }
+
+    .hero-actions {
+      flex-direction: column;
+    }
+
+    .hero-text {
+      text-align: center;
+      max-width: 100%;
+    }
+
+    .hero-subtitle {
+      max-width: 100%;
+    }
+  }
+</style>

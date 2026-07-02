@@ -1,0 +1,78 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Button from "../components/Button.astro";
+---
+
+<BaseLayout
+  title="Página no encontrada | Harmony Candle"
+  seoTitle="Página no encontrada (404) | Harmony Candle"
+  seoDescription="La página que buscas no existe. Regresa a nuestro sitio para descubrir nuestras velas artesanales."
+>
+  <div class="not-found">
+    <div class="container">
+      <div class="not-found-content">
+        <span class="error-code">404</span>
+        <h1 class="error-title">Página no encontrada</h1>
+        <p class="error-description">
+          Lo sentimos, la página que buscas no existe o ha sido movida.
+          Explora nuestros productos y descubre la magia de Harmony Candle.
+        </p>
+        <div class="error-actions">
+          <Button href="/" variant="primary" size="lg">
+            Volver al inicio
+          </Button>
+          <Button href="/#catalogo" variant="outline" size="lg">
+            Ver productos
+          </Button>
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .not-found {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: var(--space-3xl) 0;
+  }
+
+  .not-found-content {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .error-code {
+    display: block;
+    font-family: var(--font-primary);
+    font-size: clamp(6rem, 15vw, 10rem);
+    font-weight: 600;
+    color: var(--color-primary);
+    line-height: 1;
+    margin-bottom: var(--space-md);
+  }
+
+  .error-title {
+    font-family: var(--font-primary);
+    font-size: var(--text-3xl);
+    font-weight: 500;
+    margin-bottom: var(--space-md);
+  }
+
+  .error-description {
+    font-size: var(--text-lg);
+    color: var(--color-text-light);
+    line-height: 1.7;
+    margin-bottom: var(--space-xl);
+  }
+
+  .error-actions {
+    display: flex;
+    gap: var(--space-md);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+</style>

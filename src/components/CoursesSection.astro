@@ -1,0 +1,58 @@
+---
+import SectionTitle from "./SectionTitle.astro";
+import CourseCard from "./CourseCard.astro";
+import type { Course } from "../types";
+
+export interface Props {
+  courses: Course[];
+}
+
+const { courses } = Astro.props;
+---
+
+<section id="cursos" class="courses-section section section-anchor">
+  <div class="container">
+    <SectionTitle
+      label="Cursos"
+      title="Aprende con nosotros"
+      subtitle="Descubre el arte de crear velas y aromas con nuestros talleres y cursos diseñados para todos los niveles."
+    />
+
+    {courses.length > 0 ? (
+      <div class="courses-grid">
+        {courses.map((course) => (
+          <CourseCard course={course} />
+        ))}
+      </div>
+    ) : (
+      <div class="empty-state">
+        <p>Próximamente nuevos cursos disponibles.</p>
+      </div>
+    )}
+  </div>
+</section>
+
+<style>
+  .courses-section {
+    background-color: var(--color-bg-alt);
+  }
+
+  .courses-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-xl);
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: var(--space-2xl);
+    color: var(--color-text-light);
+    font-size: var(--text-lg);
+  }
+
+  @media (max-width: 768px) {
+    .courses-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

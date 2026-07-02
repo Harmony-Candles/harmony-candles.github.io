@@ -1,0 +1,79 @@
+{
+  "$ref": "#/definitions/products",
+  "definitions": {
+    "products": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "price": {
+          "type": "number"
+        },
+        "oldPrice": {
+          "type": "number"
+        },
+        "featured": {
+          "type": "boolean",
+          "default": false
+        },
+        "bestSeller": {
+          "type": "boolean",
+          "default": false
+        },
+        "isNew": {
+          "type": "boolean",
+          "default": false
+        },
+        "image": {
+          "type": "string"
+        },
+        "gallery": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": []
+        },
+        "shortDescription": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "features": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": []
+        },
+        "seoTitle": {
+          "type": "string"
+        },
+        "seoDescription": {
+          "type": "string"
+        },
+        "whatsappMessage": {
+          "type": "string"
+        },
+        "$schema": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "category",
+        "price",
+        "image",
+        "shortDescription",
+        "description"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

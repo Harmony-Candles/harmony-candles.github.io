@@ -1,0 +1,220 @@
+---
+import type { NavItem } from "../types";
+
+export interface Props {
+  navItems: NavItem[];
+}
+
+const { navItems } = Astro.props;
+---
+
+<header class="navbar" id="navbar">
+  <nav class="nav-container">
+    <a href="/" class="nav-logo" aria-label="Harmony Candle - Inicio">
+      <img
+        src="/brand/harmony-logo.png"
+        alt="Harmony Candle"
+        width="180"
+        height="50"
+        class="logo"
+      />
+    </a>
+
+    <button class="mobile-toggle" id="mobileToggle" aria-label="Menú de navegación">
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
+
+    <ul class="nav-links" id="navLinks">
+      {navItems.map((item) => (
+        <li>
+          <a href={item.href} class="nav-link hover-underline">
+            {item.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+</header>
+
+<script>
+  const mobileToggle = document.getElementById("mobileToggle");
+  const navLinks = document.getElementById("navLinks");
+  const navLinksAnchors = navLinks?.querySelectorAll("a");
+
+  mobileToggle?.addEventListener("click", () => {
+    mobileToggle.classList.toggle("active");
+    navLinks?.classList.toggle("open");
+    document.body.classList.toggle("no-scroll");
+  });
+
+  navLinksAnchors?.forEach((link) => {
+    link.addEventListener("click", () => {
+      mobileToggle?.classList.remove("active");
+      navLinks?.classList.remove("open");
+      document.body.classList.remove("no-scroll");
+    });
+  });
+</script>
+
+<style>
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: var(--z-sticky);
+    height: var(--navbar-height);
+    display: flex;
+    align-items: center;
+    transition: all var(--transition-base);
+    background: transparent;
+  }
+
+  .navbar.scrolled {
+    height: var(--navbar-height-scrolled);
+    background: rgba(250, 248, 245, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.06);
+  }
+
+  .nav-container {
+    width: 100%;
+    max-width: var(--container-wide);
+    margin: 0 auto;
+    padding: 0 var(--space-lg);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    transition: transform var(--transition-base);
+  }
+
+  .navbar.scrolled .nav-logo {
+    transform: scale(0.9);
+  }
+
+  .logo {
+    height: clamp(35px, 5vw, 50px);
+    width: auto;
+    object-fit: contain;
+  }
+
+  /* Logo white when navbar is transparent (over hero) */
+  .navbar:not(.scrolled) .logo {
+    filter: brightness(0) invert(1);
+  }
+
+  /* Logo dark/normal when scrolled */
+  .navbar.scrolled .logo {
+    filter: none;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xl);
+  }
+
+  .nav-link {
+    font-family: var(--font-secondary);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--color-text);
+    position: relative;
+    padding: 0.25rem 0;
+    transition: color var(--transition-fast);
+  }
+
+  .navbar:not(.scrolled) .nav-link {
+    color: var(--color-white);
+  }
+
+  .navbar.scrolled .nav-link {
+    color: var(--color-text);
+  }
+
+  .nav-link:hover {
+    color: var(--color-primary) !important;
+  }
+
+  .mobile-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 40px;
+    height: 40px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: var(--z-overlay);
+  }
+
+  .hamburger-line {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background-color: var(--color-text);
+    border-radius: 2px;
+    transition: all var(--transition-base);
+  }
+
+  .navbar:not(.scrolled) .hamburger-line {
+    background-color: var(--color-white);
+  }
+
+  .mobile-toggle.active .hamburger-line:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  .mobile-toggle.active .hamburger-line:nth-child(2) {
+    opacity: 0;
+  }
+
+  .mobile-toggle.active .hamburger-line:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+  }
+
+  @media (max-width: 768px) {
+    .mobile-toggle {
+      display: flex;
+    }
+
+    .nav-links {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(250, 248, 245, 0.98);
+      backdrop-filter: blur(20px);
+      flex-direction: column;
+      justify-content: center;
+      gap: var(--space-lg);
+      opacity: 0;
+      visibility: hidden;
+      transition: all var(--transition-base);
+      z-index: calc(var(--z-overlay) - 1);
+    }
+
+    .nav-links.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .nav-link {
+      font-size: var(--text-xl);
+      color: var(--color-text) !important;
+    }
+  }
+</style>

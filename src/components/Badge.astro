@@ -1,0 +1,45 @@
+---
+export interface Props {
+  type: "new" | "best-seller" | "sale";
+  className?: string;
+}
+
+const { type, className = "" } = Astro.props;
+
+const labels: Record<string, string> = {
+  "new": "Nuevo",
+  "best-seller": "Más vendido",
+  "sale": "Oferta",
+};
+---
+
+<span class={`badge ${type} ${className}`}>{labels[type]}</span>
+
+<style>
+  .badge {
+    display: inline-block;
+    font-family: var(--font-secondary);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radius-full);
+    white-space: nowrap;
+  }
+
+  .new {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+  }
+
+  .best-seller {
+    background-color: var(--color-secondary);
+    color: var(--color-white);
+  }
+
+  .sale {
+    background-color: #e74c3c;
+    color: var(--color-white);
+  }
+</style>

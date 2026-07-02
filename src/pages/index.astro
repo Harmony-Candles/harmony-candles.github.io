@@ -1,0 +1,159 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/Hero.astro";
+import SectionTitle from "../components/SectionTitle.astro";
+import ProductGrid from "../components/ProductGrid.astro";
+import CategorySection from "../components/CategorySection.astro";
+import CoursesSection from "../components/CoursesSection.astro";
+import AboutSection from "../components/AboutSection.astro";
+import FAQ from "../components/FAQ.astro";
+import Button from "../components/Button.astro";
+import { getCollection } from "astro:content";
+
+// Get all products
+const products = await getCollection("products");
+const productEntries = products.map((entry) => ({
+  id: entry.id,
+  slug: entry.slug,
+  ...entry.data,
+}));
+
+// Get all courses
+const courses = await getCollection("courses");
+const courseEntries = courses.map((entry) => ({
+  id: entry.id,
+  slug: entry.slug,
+  ...entry.data,
+}));
+
+// Get all FAQ
+const faqEntries = await getCollection("faq");
+const faqData = faqEntries
+  .map((entry) => ({
+    id: entry.id,
+    question: entry.data.question,
+    answer: entry.data.answer,
+    order: entry.data.order,
+  }))
+  .sort((a, b) => a.order - b.order);
+
+// Group products by category
+const categories = [...new Set(productEntries.map((p) => p.category))];
+
+const categoryNames: Record<string, string> = {
+  bouquets: "Ramos",
+  decorativas: "Decorativas",
+  aromaticas: "Aromáticas",
+  bandejas: "Bandejas",
+  "porta-inciensos": "Porta Inciensos",
+  recordatorios: "Recordatorios",
+};
+
+const groupedProducts = categories.map((category) => ({
+  category,
+  name: categoryNames[category] || category,
+  products: productEntries.filter((p) => p.category === category),
+}));
+
+// Featured products
+const featuredProducts = productEntries.filter((p) => p.featured);
+const bestSellers = productEntries.filter((p) => p.bestSeller);
+---
+
+<BaseLayout
+  title="Harmony Candle | Velas Artesanales Premium"
+  seoTitle="Harmony Candle | Velas Artesanales Hechas a Mano en Colombia"
+  seoDescription="Descubre Harmony Candle: velas artesanales premium, ramos de lavanda, aromas naturales y accesorios. Hecho a mano en Colombia con materiales 100% naturales. Envíos a todo el país."
+>
+  <Hero />
+
+  <!-- Catalog Section -->
+  <section id="catalogo" class="catalog-section section section-anchor">
+    <div class="container">
+      <SectionTitle
+        label="Catálogo"
+        title="Nuestros productos"
+        subtitle="Cada pieza es elaborada cuidadosamente a mano, seleccionando los mejores materiales naturales para crear experiencias únicas."
+      />
+
+      <!-- Featured section -->
+      {featuredProducts.length > 0 && (
+        <div class="featured-products">
+          <h3 class="subsection-title reveal">Destacados</h3>
+          <ProductGrid products={featuredProducts} columns={3} />
+        </div>
+      )}
+
+      <!-- Best sellers -->
+      {bestSellers.length > 0 && (
+        <div class="best-sellers">
+          <h3 class="subsection-title reveal">Más vendidos</h3>
+          <ProductGrid products={bestSellers} columns={3} />
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- Category Sections -->
+  {groupedProducts.map((group) => (
+    <section
+      id={`categoria-${group.category}`}
+      class="category-section section section-anchor"
+    >
+      <div class="container">
+        <SectionTitle
+          label={group.name}
+          title={group.name}
+          subtitle={`Descubre nuestra colección de ${group.name.toLowerCase()} cuidadosamente seleccionados para ti.`}
+        />
+        <ProductGrid products={group.products} columns={3} />
+      </div>
+    </section>
+  ))}
+
+  <!-- Courses Section -->
+  <CoursesSection courses={courseEntries} />
+
+  <!-- About Section -->
+  <AboutSection />
+
+  <!-- FAQ Section -->
+  <FAQ faqs={faqData} />
+</BaseLayout>
+
+<style>
+  .catalog-section {
+    padding: var(--space-3xl) 0;
+  }
+
+  .subsection-title {
+    font-family: var(--font-primary);
+    font-size: var(--text-2xl);
+    font-weight: 500;
+    color: var(--color-text-light);
+    margin-bottom: var(--space-lg);
+    text-align: center;
+  }
+
+  .featured-products,
+  .best-sellers {
+    margin-bottom: var(--space-2xl);
+    padding-bottom: var(--space-2xl);
+    border-bottom: 1px solid var(--color-border-light);
+  }
+
+  .category-section {
+    padding: var(--space-3xl) 0;
+  }
+
+  .category-section:nth-child(even) {
+    background-color: var(--color-bg-alt);
+  }
+
+  @media (max-width: 768px) {
+    .catalog-section,
+    .category-section {
+      padding: var(--space-2xl) 0;
+    }
+  }
+</style>

@@ -1,0 +1,162 @@
+---
+import type { FAQ } from "../types";
+
+export interface Props {
+  faqs: FAQ[];
+}
+
+const { faqs } = Astro.props;
+const sortedFaqs = [...faqs].sort((a, b) => a.order - b.order);
+---
+
+<section id="faq" class="faq-section section section-anchor">
+  <div class="container container-narrow">
+    <div class="section-header">
+      <span class="section-label reveal">FAQ</span>
+      <h2 class="section-title reveal">Preguntas frecuentes</h2>
+      <p class="section-subtitle reveal">
+        Resolvemos tus dudas sobre nuestros productos, envíos y más.
+      </p>
+    </div>
+
+    <div class="faq-list">
+      {sortedFaqs.map((faq, index) => (
+        <details class="faq-item reveal" name="faq">
+          <summary class="faq-question">
+            <span class="question-text">{faq.question}</span>
+            <span class="faq-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="9 18 15 12 9 6"/>
+              </svg>
+            </span>
+          </summary>
+          <div class="faq-answer">
+            <p>{faq.answer}</p>
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq-section {
+    background-color: var(--color-bg);
+  }
+
+  .section-label {
+    display: inline-block;
+    font-family: var(--font-secondary);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-primary);
+    margin-bottom: var(--space-sm);
+  }
+
+  .section-title {
+    font-family: var(--font-primary);
+    font-size: var(--text-4xl);
+    font-weight: 500;
+    color: var(--color-text);
+    margin-bottom: var(--space-md);
+  }
+
+  .section-subtitle {
+    font-size: var(--text-lg);
+    color: var(--color-text-light);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: var(--space-2xl);
+  }
+
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .faq-item {
+    background: var(--color-white);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: box-shadow var(--transition-base);
+  }
+
+  .faq-item:hover {
+    box-shadow: var(--shadow-sm);
+  }
+
+  .faq-item[open] {
+    box-shadow: var(--shadow-md);
+  }
+
+  .faq-question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+    padding: var(--space-lg);
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+  }
+
+  .faq-question::-webkit-details-marker {
+    display: none;
+  }
+
+  .question-text {
+    font-family: var(--font-primary);
+    font-size: var(--text-xl);
+    font-weight: 500;
+    color: var(--color-text);
+    line-height: 1.4;
+  }
+
+  .faq-icon {
+    flex-shrink: 0;
+    color: var(--color-primary);
+    transition: transform var(--transition-base);
+  }
+
+  .faq-item[open] .faq-icon {
+    transform: rotate(90deg);
+  }
+
+  .faq-answer {
+    padding: 0 var(--space-lg) var(--space-lg);
+  }
+
+  .faq-answer p {
+    font-size: var(--text-base);
+    color: var(--color-text-light);
+    line-height: 1.8;
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .section-title {
+      font-size: var(--text-3xl);
+    }
+
+    .question-text {
+      font-size: var(--text-lg);
+    }
+
+    .faq-question {
+      padding: var(--space-md);
+    }
+
+    .faq-answer {
+      padding: 0 var(--space-md) var(--space-md);
+    }
+  }
+</style>
