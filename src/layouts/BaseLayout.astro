@@ -12,6 +12,7 @@ export interface Props {
   seoDescription?: string;
   ogImage?: string;
   ogType?: string;
+  headerTransparent?: boolean;
 }
 
 const {
@@ -21,18 +22,19 @@ const {
   seoDescription,
       ogImage = "/brand/harmony-iso-logo.png",
   ogType = "website",
+  headerTransparent = false,
 } = Astro.props;
 
 const pageTitle = seoTitle || title;
 const pageDescription = seoDescription || description;
 
 const navItems: NavItem[] = [
-  { label: "Inicio", href: "#hero" },
-  { label: "Catálogo", href: "#catalogo" },
-  { label: "Cursos", href: "#cursos" },
-  { label: "Sobre Harmony", href: "#sobre-harmony" },
-  { label: "FAQ", href: "#faq" },
-  { label: "Contacto", href: "#contacto" },
+  { label: "Inicio", href: "/#hero" },
+  { label: "Catálogo", href: "/#catalogo" },
+  { label: "Cursos", href: "/#cursos" },
+  { label: "Sobre Harmony", href: "/#sobre-harmony" },
+  { label: "FAQ", href: "/#faq" },
+  { label: "Contacto", href: "/#contacto" },
 ];
 ---
 
@@ -95,7 +97,18 @@ const navItems: NavItem[] = [
     `}></script>
   </head>
   <body>
-    <Header navItems={navItems} />
+    <Header
+      navItems={navItems}
+      transparent={headerTransparent}
+      categories={[
+        { slug: "bouquets", name: "Ramos", href: "/#categoria-bouquets" },
+        { slug: "decorativas", name: "Decorativas", href: "/#categoria-decorativas" },
+        { slug: "aromaticas", name: "Aromáticas", href: "/#categoria-aromaticas" },
+        { slug: "bandejas", name: "Bandejas", href: "/#categoria-bandejas" },
+        { slug: "porta-inciensos", name: "Porta Inciensos", href: "/#categoria-porta-inciensos" },
+        { slug: "recordatorios", name: "Recordatorios", href: "/#categoria-recordatorios" },
+      ]}
+    />
     <main>
       <slot />
     </main>

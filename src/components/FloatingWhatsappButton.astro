@@ -4,7 +4,9 @@ export interface Props {
   message?: string;
 }
 
-const { phone = "573508573886", message = "Hola Harmony 🌿 Quiero más información" } = Astro.props;
+import { SITE_CONFIG } from "../config/site";
+
+const { phone = SITE_CONFIG.whatsappPhone, message = SITE_CONFIG.whatsappMessage } = Astro.props;
 const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
 ---
 

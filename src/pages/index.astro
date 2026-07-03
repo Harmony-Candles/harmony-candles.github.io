@@ -62,6 +62,7 @@ const bestSellers = productEntries.filter((p) => p.bestSeller);
 
 <BaseLayout
   title="Harmony Candle | Velas Artesanales Premium"
+  headerTransparent={true}
   seoTitle="Harmony Candle | Velas Artesanales Hechas a Mano en Colombia"
   seoDescription="Descubre Harmony Candle: velas artesanales premium, ramos de lavanda, aromas naturales y accesorios. Hecho a mano en Colombia con materiales 100% naturales. Envíos a todo el país."
 >
@@ -123,7 +124,7 @@ const bestSellers = productEntries.filter((p) => p.bestSeller);
 
 <style>
   .catalog-section {
-    padding: var(--space-3xl) 0;
+    padding: var(--space-2xl) 0;
   }
 
   .subsection-title {
@@ -137,13 +138,13 @@ const bestSellers = productEntries.filter((p) => p.bestSeller);
 
   .featured-products,
   .best-sellers {
-    margin-bottom: var(--space-2xl);
-    padding-bottom: var(--space-2xl);
+    margin-bottom: var(--space-xl);
+    padding-bottom: var(--space-xl);
     border-bottom: 1px solid var(--color-border-light);
   }
 
   .category-section {
-    padding: var(--space-3xl) 0;
+    padding: var(--space-2xl) 0;
   }
 
   .category-section:nth-child(even) {
@@ -153,7 +154,13 @@ const bestSellers = productEntries.filter((p) => p.bestSeller);
   @media (max-width: 768px) {
     .catalog-section,
     .category-section {
-      padding: var(--space-2xl) 0;
+      padding: var(--space-xl) 0;
+    }
+
+    .featured-products,
+    .best-sellers {
+      margin-bottom: var(--space-lg);
+      padding-bottom: var(--space-lg);
     }
   }
 </style>

@@ -4,6 +4,7 @@ import Button from "../../components/Button.astro";
 import ProductGrid from "../../components/ProductGrid.astro";
 import Badge from "../../components/Badge.astro";
 import { getCollection } from "astro:content";
+import { SITE_CONFIG } from "../../config/site";
 
 export async function getStaticPaths() {
   const products = await getCollection("products");
@@ -35,11 +36,17 @@ const formatPrice = (price: number) =>
     maximumFractionDigits: 0,
   }).format(price);
 
-const whatsappUrl = `https://wa.me/573508573886?text=${encodeURIComponent(
+const whatsappUrl = `https://wa.me/${SITE_CONFIG.whatsappPhone}?text=${encodeURIComponent(
   data.whatsappMessage || `Hola Harmony 🌿 Quiero información sobre ${data.title}. ¿Está disponible?`
 )}`;
 
 const pageTitle = `${data.title} | Harmony Candle`;
+
+// Build gallery array: include main image first, then any extra gallery images
+const galleryImages = [data.image, ...(data.gallery || [])].filter(
+  (v, i, a) => a.indexOf(v) === i
+);
+const hasGallery = galleryImages.length > 1;
 ---
 
 <BaseLayout
@@ -61,27 +68,56 @@ const pageTitle = `${data.title} | Harmony Candle`;
       </nav>
 
       <div class="product-layout">
-        <!-- Image -->
-        <div class="product-gallery reveal-left">
-          <div class="main-image img-zoom">
+        <!-- Image Gallery -->
+        <div class="product-gallery reveal-left" data-gallery>
+          <div class="main-image img-zoom" data-main-image-container>
             <img
+              id="main-product-image"
               src={data.image}
               alt={data.title}
               width="800"
               height="1000"
               loading="eager"
+              data-main-image
             />
             <div class="badges-overlay">
               {data.isNew && <Badge type="new" />}
               {data.bestSeller && <Badge type="best-seller" />}
               {data.oldPrice && <Badge type="sale" />}
             </div>
+            {hasGallery && (
+              <div class="nav-btn nav-prev" data-nav-prev aria-label="Anterior">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </div>
+            )}
+            {hasGallery && (
+              <div class="nav-btn nav-next" data-nav-next aria-label="Siguiente">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                  <polyline points="9 18 15 12 9 6" />
+                </svg>
+              </div>
+            )}
           </div>
 
-          {data.gallery && data.gallery.length > 0 && (
-            <div class="gallery-thumbs">
-              {data.gallery.map((img) => (
-                <img src={img} alt={data.title} loading="lazy" width="200" height="250" />
+          {hasGallery && (
+            <div class="gallery-thumbs" data-thumbnails>
+              {galleryImages.map((img, index) => (
+                <button
+                  class="thumb-btn"
+                  data-thumb={index}
+                  data-src={img}
+                  aria-label={`Ver imagen ${index + 1}`}
+                >
+                  <img
+                    src={img}
+                    alt={`${data.title} - Imagen ${index + 1}`}
+                    loading="lazy"
+                    width="200"
+                    height="250"
+                  />
+                </button>
               ))}
             </div>
           )}
@@ -144,6 +180,260 @@ const pageTitle = `${data.title} | Harmony Candle`;
   </article>
 </BaseLayout>
 
+<script>
+  /**
+   * Professional product image gallery with smooth transitions.
+   * - Click thumbnail → swap main image with cross-fade
+   * - Arrow navigation (prev / next) on main image
+   * - Active thumbnail indicator
+   * - Keyboard support (left / right arrows)
+   */
+  (() => {
+    const mainImg = document.getElementById("main-product-image");
+    if (!mainImg) return;
+
+    const gallery = mainImg.closest("[data-gallery]");
+    const container = mainImg.closest("[data-main-image-container]");
+    const thumbnails = gallery?.querySelector("[data-thumbnails]");
+    const prevBtn = gallery?.querySelector("[data-nav-prev]");
+    const nextBtn = gallery?.querySelector("[data-nav-next]");
+
+    const thumbs = thumbnails
+      ? Array.from(thumbnails.querySelectorAll("[data-thumb]"))
+      : [];
+
+    const images = thumbs.map((btn) => btn.dataset.src);
+    let currentIndex = 0;
+
+    if (images.length === 0) return;
+
+    // ---- Swap main image with cross-fade ----
+    function setImage(index) {
+      if (index < 0 || index >= images.length || index === currentIndex) return;
+
+      currentIndex = index;
+      const src = images[index];
+
+      // Cross-fade: create a temporary overlay image, fade it in, swap src, fade out overlay
+      const overlay = document.createElement("img");
+      overlay.src = src;
+      overlay.alt = mainImg.alt;
+      overlay.width = mainImg.width;
+      overlay.height = mainImg.height;
+      overlay.loading = "eager";
+      overlay.style.cssText = `
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        z-index: 2;
+        border-radius: inherit;
+      `;
+
+      container?.appendChild(overlay);
+
+      // Force reflow
+      overlay.getBoundingClientRect();
+
+      // Fade in overlay
+      requestAnimationFrame(() => {
+        overlay.style.opacity = "1";
+      });
+
+      // After fade in, swap the real src and remove overlay
+      setTimeout(() => {
+        mainImg.src = src;
+        overlay.remove();
+      }, 300);
+
+      // Update active thumbnail
+      thumbs.forEach((btn, i) => {
+        btn.classList.toggle("active", i === index);
+      });
+
+      // Update nav button visibility at boundaries
+      if (prevBtn) prevBtn.style.opacity = index === 0 ? "0.3" : "1";
+      if (nextBtn) nextBtn.style.opacity = index === images.length - 1 ? "0.3" : "1";
+    }
+
+    // ---- Thumbnail click ----
+    thumbs.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const idx = parseInt(btn.dataset.thumb, 10);
+        setImage(idx);
+      });
+    });
+
+    // ---- Arrow navigation ----
+    prevBtn?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      setImage(currentIndex - 1);
+    });
+
+    nextBtn?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      setImage(currentIndex + 1);
+    });
+
+    // ---- Keyboard support ----
+    const handleKeydown = (e) => {
+      if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        setImage(currentIndex - 1);
+      } else if (e.key === "ArrowRight") {
+        e.preventDefault();
+        setImage(currentIndex + 1);
+      }
+    };
+
+    document.addEventListener("keydown", handleKeydown);
+
+    // ---- Set initial active thumbnail ----
+    if (thumbs.length > 0) {
+      thumbs[0].classList.add("active");
+    }
+    if (prevBtn) prevBtn.style.opacity = "0.3";
+    if (nextBtn && images.length <= 1) nextBtn.style.opacity = "0.3";
+
+    // ---- Cleanup ----
+    return () => {
+      document.removeEventListener("keydown", handleKeydown);
+    };
+  })();
+</script>
+
+<style is:global>
+  /* ---------- Main image container (for overlay positioning) ---------- */
+  .main-image {
+    position: relative;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+  }
+
+  .main-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  /* ---------- Zoom on hover (desktop only) ---------- */
+  @media (hover: hover) {
+    .img-zoom:hover img {
+      transform: scale(1.08);
+    }
+  }
+
+  /* ---------- Navigation arrows overlay ---------- */
+  .nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 5;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 50%;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.25s ease, transform 0.25s ease, background 0.2s;
+    color: var(--color-text);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    pointer-events: auto;
+  }
+
+  .nav-btn:hover {
+    background: rgba(255, 255, 255, 0.98);
+    transform: translateY(-50%) scale(1.05);
+  }
+
+  .main-image:hover .nav-btn {
+    opacity: 1;
+  }
+
+  .nav-prev {
+    left: var(--space-md);
+  }
+
+  .nav-next {
+    right: var(--space-md);
+  }
+
+  /* ---------- Thumbnail strip ---------- */
+  .gallery-thumbs {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-sm);
+    margin-top: var(--space-md);
+  }
+
+  .thumb-btn {
+    all: unset;
+    cursor: pointer;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 2px solid transparent;
+    transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+    position: relative;
+  }
+
+  .thumb-btn::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.04);
+    transition: opacity 0.25s ease;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .thumb-btn:hover::after {
+    opacity: 1;
+  }
+
+  .thumb-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .thumb-btn.active {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 1px var(--color-primary), 0 4px 16px rgba(0, 0, 0, 0.12);
+    transform: translateY(-1px);
+  }
+
+  .thumb-btn img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: opacity 0.25s ease;
+  }
+
+  .thumb-btn.active img {
+    opacity: 1;
+  }
+
+  /* ---------- Badges overlay (above zoom) ---------- */
+  .badges-overlay {
+    position: absolute;
+    top: var(--space-md);
+    left: var(--space-md);
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    z-index: 3;
+    pointer-events: none;
+  }
+</style>
+
 <style>
   .product-detail {
     padding-top: calc(var(--navbar-height) + var(--space-xl));
@@ -185,45 +475,6 @@ const pageTitle = `${data.title} | Harmony Candle`;
   .product-gallery {
     position: sticky;
     top: calc(var(--navbar-height) + var(--space-lg));
-  }
-
-  .main-image {
-    position: relative;
-    border-radius: var(--radius-xl);
-    overflow: hidden;
-  }
-
-  .main-image img {
-    width: 100%;
-    height: auto;
-    display: block;
-  }
-
-  .badges-overlay {
-    position: absolute;
-    top: var(--space-md);
-    left: var(--space-md);
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-  }
-
-  .gallery-thumbs {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: var(--space-sm);
-    margin-top: var(--space-md);
-  }
-
-  .gallery-thumbs img {
-    width: 100%;
-    border-radius: var(--radius-md);
-    cursor: pointer;
-    transition: opacity var(--transition-fast);
-  }
-
-  .gallery-thumbs img:hover {
-    opacity: 0.8;
   }
 
   .category-label {
@@ -343,6 +594,16 @@ const pageTitle = `${data.title} | Harmony Candle`;
 
     .product-title {
       font-size: var(--text-3xl);
+    }
+
+    .nav-btn {
+      width: 36px;
+      height: 36px;
+      opacity: 0.7;
+    }
+
+    .main-image .nav-btn {
+      opacity: 0.7;
     }
   }
 </style>

@@ -1,6 +1,7 @@
 ---
 import Button from "./Button.astro";
 import type { Course } from "../types";
+import { SITE_CONFIG } from "../config/site";
 
 export interface Props {
   course: Course;
@@ -49,7 +50,7 @@ const formatPrice = (price: number) =>
     <div class="card-footer">
       <span class="price">{formatPrice(course.price)}</span>
       <Button
-        href={`https://wa.me/573508573886?text=${encodeURIComponent(course.whatsapp || "")}`}
+        href={`https://wa.me/${SITE_CONFIG.whatsappPhone}?text=${encodeURIComponent(course.whatsapp || "")}`}
         variant="primary"
         size="sm"
       >
