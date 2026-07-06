@@ -8,7 +8,7 @@
     "dev": "astro dev",
     "build": "astro build && copy dist\\index.html dist\\404.html",
     "preview": "astro preview",
-    "deploy": "astro build && gh-pages -d dist"
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "astro": "^5.0.0",
