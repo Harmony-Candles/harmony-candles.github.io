@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build && copy dist\\index.html dist\\404.html",
+    "build": "astro build && node -e \"require('fs').copyFileSync('dist/index.html', 'dist/404.html')\"",
     "preview": "astro preview",
     "deploy": "gh-pages -d dist"
   },
