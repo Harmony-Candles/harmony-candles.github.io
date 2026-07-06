@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://harmony-candles.github.io/sitemap-index.xml
