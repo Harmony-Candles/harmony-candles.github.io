@@ -8,6 +8,7 @@ export default defineConfig({
   integrations: [sitemap()],
   build: {
     format: "file",
+    assets: "assets",
   },
   server: {
     port: 3000,
