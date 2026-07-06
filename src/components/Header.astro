@@ -71,6 +71,8 @@ const { navItems, transparent = true, categories = [] } = Astro.props;
   const mobileToggle = document.getElementById("mobileToggle");
   const navLinks = document.getElementById("navLinks");
   const navLinksAnchors = navLinks?.querySelectorAll("a");
+  const catalogDropdown = document.querySelector(".nav-dropdown");
+  const catalogLink = catalogDropdown?.querySelector(".nav-link");
 
   mobileToggle?.addEventListener("click", () => {
     mobileToggle.classList.toggle("active");
@@ -78,12 +80,36 @@ const { navItems, transparent = true, categories = [] } = Astro.props;
     document.body.classList.toggle("no-scroll");
   });
 
+  // Toggle submenu on mobile when clicking "Catálogo"
+  function bindCatalogToggle() {
+    const catLink = document.querySelector(".nav-dropdown .nav-link");
+    if (catLink && window.innerWidth <= 768) {
+      catLink.addEventListener("click", (e) => {
+        e.preventDefault();
+        catalogDropdown?.classList.toggle("dropdown-open");
+      });
+    }
+  }
+
+  bindCatalogToggle();
+
+  // Close menu on link click (except catalog link which toggles submenu)
   navLinksAnchors?.forEach((link) => {
     link.addEventListener("click", () => {
+      if (link.closest(".nav-dropdown") && window.innerWidth <= 768) {
+        return;
+      }
       mobileToggle?.classList.remove("active");
       navLinks?.classList.remove("open");
       document.body.classList.remove("no-scroll");
     });
+  });
+
+  // Handle resize
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 768) {
+      catalogDropdown?.classList.remove("dropdown-open");
+    }
   });
 </script>
 
@@ -350,6 +376,10 @@ const { navItems, transparent = true, categories = [] } = Astro.props;
     .nav-links.open {
       opacity: 1;
       visibility: visible;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding-top: var(--navbar-height);
+      padding-bottom: var(--space-xl);
     }
 
     .nav-link {
@@ -357,8 +387,12 @@ const { navItems, transparent = true, categories = [] } = Astro.props;
       color: var(--color-text) !important;
     }
 
-    /* In mobile, show submenu inline */
-    .submenu {
+    /* Submenu on mobile — hidden by default, toggle via .dropdown-open */
+    .nav-dropdown .submenu {
+      display: none;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
       position: static;
       transform: none;
       opacity: 1;
@@ -367,8 +401,18 @@ const { navItems, transparent = true, categories = [] } = Astro.props;
       border: none;
       background: transparent;
       backdrop-filter: none;
-      padding: 0.25rem 0 0 0;
+      padding: 0;
       width: auto;
+    }
+
+    .nav-dropdown.dropdown-open .submenu {
+      display: block;
+      max-height: 500px;
+      padding: 0.25rem 0 0 0;
+    }
+
+    .nav-dropdown .dropdown-chevron {
+      display: inline-block;
     }
 
     .submenu-grid {
@@ -389,10 +433,6 @@ const { navItems, transparent = true, categories = [] } = Astro.props;
     .nav-dropdown {
       flex-direction: column;
       align-items: flex-start;
-    }
-
-    .dropdown-chevron {
-      display: none;
     }
   }
 </style>
