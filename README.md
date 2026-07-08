@@ -94,75 +94,95 @@ harmony-candles.github.io/
 
 ## 🧩 Cómo agregar contenido
 
-### Agregar un producto
+Toda la gestión de contenido se realiza a través de **Astro Content Collections**. Solo necesitas crear un archivo `.md` (Markdown con frontmatter) en la carpeta correspondiente, siguiendo los esquemas definidos en `src/content/config.ts`.
 
-1. Crea un archivo `.md` en `src/content/products/`:
+---
+
+### 📦 Agregar un producto
+
+Crea un archivo `.md` dentro de `src/content/products/`. El nombre del archivo (sin extensión) se usará como **slug** de la URL (ej: `vela-vainilla.md` → `/producto/vela-vainilla`).
+
+#### Esquema completo de campos
 
 ```markdown
 ---
-title: "Nombre del Producto"
-category: "bouquets"                # Categoría (ver categorías disponibles abajo)
-price: 45000
-oldPrice: 55000                     # Opcional (precio anterior para mostrar oferta)
-featured: true                      # Aparece en "Destacados"
-bestSeller: false                   # Aparece en "Más vendidos"
-isNew: true                         # Muestra badge "Nuevo"
-image: "/images/products/tu-imagen.jpg"
-gallery:
+title: "Nombre del Producto"                        # Obligatorio — Título visible del producto
+category: "velas-aromaticas"                        # Obligatorio — Slug de categoría (ver tabla abajo)
+price: 45000                                        # Obligatorio — Precio en pesos colombianos (COP)
+oldPrice: 55000                                     # Opcional — Precio anterior (si se omite no se muestra oferta)
+featured: true                                      # Opcional — true = aparece en sección "Destacados" (default: false)
+bestSeller: true                                    # Opcional — true = aparece en sección "Más vendidos" (default: false)
+isNew: false                                        # Opcional — true = muestra badge "Nuevo" (default: false)
+image: "/images/products/tu-imagen.jpg"             # Obligatorio — Ruta de la imagen principal
+gallery:                                            # Opcional — Lista de imágenes adicionales para el detalle
   - "/images/products/tu-imagen-2.jpg"
-shortDescription: "Descripción breve para la tarjeta."
-description: "Descripción larga para la página del producto."
-features:
+  - "/images/products/tu-imagen-3.jpg"
+shortDescription: "Descripción breve para la tarjeta."   # Obligatorio — Texto corto (tarjetas, previstas)
+description: "Descripción larga para la página del producto." # Obligatorio — Texto completo (página de detalle)
+features:                                           # Opcional — Lista de características / puntos clave
   - "Característica 1"
   - "Característica 2"
-seoTitle: "SEO Title | Harmony Candle"
-seoDescription: "Meta description para SEO."
-whatsappMessage: "Mensaje personalizado para WhatsApp"
+seoTitle: "Título SEO | Harmony Candle"              # Opcional — Título para meta tag (usa el title si se omite)
+seoDescription: "Meta description para SEO."         # Opcional — Descripción para meta tag
+whatsappMessage: "Mensaje personalizado para WhatsApp" # Opcional — Texto predefinido al hacer clic en WhatsApp
 ---
 ```
 
-2. Coloca las imágenes en `public/images/products/`.
+#### Categorías disponibles
 
-3. El producto aparecerá automáticamente en el catálogo, en su categoría correspondiente y en la sección de destacados/más vendidos según los flags.
+Estas son las categorías existentes. El campo `category` debe usar el **slug** (columna izquierda), no el nombre mostrado:
 
-### Categorías disponibles
+| Slug | Nombre mostrado | Descripción |
+|------|----------------|-------------|
+| `velas-aromaticas` | Velas Aromáticas | Velas con fragancia (eucalipto, menta, palo santo, etc.) |
+| `decorativas` | Velas Decorativas | Velas de diseño para decorar espacios |
+| `bouquets` | Bouquet de Velas | Ramos y composiciones con velas |
+| `bases` | Bases | Bases y bandejas decorativas para presentar velas |
+| `porta-inciensos` | Porta Inciensos | Porta inciensos de cerámica y otros materiales |
+| `sets` | Sets | Paquetes y sets de productos combinados |
+| `floreros` | Floreros | Floreros decorativos |
+| `recordatorios` | Recordatorios | Velas personalizadas para eventos (bodas, bautizos, etc.) |
 
-- `bouquets` → Ramos
-- `decorativas` → Decorativas
-- `aromaticas` → Aromáticas
-- `bandejas` → Bandejas
-- `porta-inciensos` → Porta Inciensos
-- `recordatorios` → Recordatorios
+> ⚠️ **Importante:** Si necesitas agregar una categoría nueva, debes:
+> 1. Elegir un slug único (ej: `velas-citricas`)
+> 2. Agregarlo al mapa `CATEGORY_NAMES` en `src/config/categories.ts`
+> 3. Agregarlo también al array `CATEGORY_ORDER` en el mismo archivo
 
-Para agregar una nueva categoría, solo crea un producto con el nuevo nombre de categoría. Luego actualiza el mapa `categoryNames` en `src/pages/index.astro` para mostrar el nombre en español.
+---
 
-### Agregar un curso
+### 📚 Agregar un curso
 
-Crea un archivo `.md` en `src/content/courses/`:
+Crea un archivo `.md` dentro de `src/content/courses/`. El nombre del archivo será el slug del curso.
+
+#### Esquema completo de campos
 
 ```markdown
 ---
-title: "Nombre del Curso"
-cover: "/images/courses/tu-imagen.jpg"
-price: 120000
-duration: "4 semanas"
-lessons: 8
-description: "Descripción del curso."
-seoTitle: "SEO Title"
-seoDescription: "Meta description"
-whatsapp: "Mensaje para WhatsApp"
+title: "Nombre del Curso"                             # Obligatorio — Título del curso
+cover: "/images/courses/tu-imagen.jpg"                # Obligatorio — Ruta de la imagen de portada
+price: 120000                                         # Obligatorio — Precio en COP
+duration: "4 semanas"                                 # Obligatorio — Texto de duración (ej: "4 semanas", "2 meses")
+lessons: 8                                            # Obligatorio — Número de lecciones/clases
+description: "Descripción completa del curso."        # Obligatorio — Texto descriptivo
+seoTitle: "Título SEO | Harmony Candle"                # Opcional — Meta title personalizado
+seoDescription: "Meta description para SEO."           # Opcional — Meta description personalizada
+whatsapp: "Mensaje personalizado para WhatsApp"        # Opcional — Texto para botón de WhatsApp
 ---
 ```
 
-### Agregar preguntas frecuentes
+---
 
-Crea un archivo `.md` en `src/content/faq/`:
+### ❓ Agregar preguntas frecuentes
+
+Crea un archivo `.md` dentro de `src/content/faq/`. El nombre del archivo es libre (se recomienda usar un identificador corto como `envios.md`, `productos.md`, etc.).
+
+#### Esquema completo de campos
 
 ```markdown
 ---
-question: "¿Tu pregunta?"
-answer: "Tu respuesta detallada."
-order: 1
+question: "¿Tu pregunta?"                             # Obligatorio — Texto de la pregunta
+answer: "Tu respuesta detallada."                     # Obligatorio — Texto de la respuesta (soporta HTML básico)
+order: 1                                              # Opcional — Número de orden (default: 0). Menor número = aparece primero
 ---
 ```
 

@@ -1,6 +1,6 @@
 ---
 title: "Sahumerio de Palo Santo & Salvia"
-category: "aromaticas"
+category: "velas-aromaticas"
 price: 22000
 featured: false
 bestSeller: false

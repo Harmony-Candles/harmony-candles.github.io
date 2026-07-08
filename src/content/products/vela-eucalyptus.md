@@ -1,6 +1,6 @@
 ---
 title: "Vela Aromática Eucalipto & Menta"
-category: "aromaticas"
+category: "velas-aromaticas"
 price: 38000
 featured: true
 bestSeller: false

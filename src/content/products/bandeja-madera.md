@@ -1,6 +1,6 @@
 ---
 title: "Bandeja Decorativa de Madera"
-category: "bandejas"
+category: "bases"
 price: 55000
 oldPrice: 65000
 featured: false

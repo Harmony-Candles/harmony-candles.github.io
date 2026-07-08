@@ -3,10 +3,10 @@
  * This is the single source of truth for category display names.
  */
 export const CATEGORY_NAMES: Record<string, string> = {
-  aromaticas: "Velas Aromáticas",
+  "velas-aromaticas": "Velas Aromáticas",
   decorativas: "Velas Decorativas",
   bouquets: "Bouquet de Velas",
-  bandejas: "Bases",
+  bases: "Bases",
   "porta-inciensos": "Porta Inciensos",
   sets: "Sets",
   floreros: "Floreros",
@@ -17,10 +17,10 @@ export const CATEGORY_NAMES: Record<string, string> = {
  * Ordered list of category slugs for navigation and section display.
  */
 export const CATEGORY_ORDER = [
-  "aromaticas",
+  "velas-aromaticas",
   "decorativas",
   "bouquets",
-  "bandejas",
+  "bases",
   "porta-inciensos",
   "sets",
   "floreros",

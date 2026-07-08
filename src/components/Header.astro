@@ -393,6 +393,7 @@ const { navItems, transparent = true, categories = [] } = Astro.props;
       backdrop-filter: blur(20px);
       flex-direction: column;
       justify-content: center;
+      align-items: center;
       gap: var(--space-lg);
       opacity: 0;
       visibility: hidden;
@@ -412,6 +413,7 @@ const { navItems, transparent = true, categories = [] } = Astro.props;
     .nav-link {
       font-size: var(--text-xl);
       color: var(--color-text) !important;
+      text-align: center;
     }
 
     /* Submenu on mobile — hidden by default, toggle via .dropdown-open */
@@ -439,6 +441,23 @@ const { navItems, transparent = true, categories = [] } = Astro.props;
       display: inline-block;
     }
 
+    .nav-links li {
+      width: 100%;
+      text-align: center;
+      display: block;
+    }
+
+    .nav-dropdown {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+
+    .nav-dropdown .nav-link {
+      justify-content: center;
+    }
+
     .submenu-grid {
       grid-template-columns: 1fr;
       padding: 0;
@@ -446,17 +465,13 @@ const { navItems, transparent = true, categories = [] } = Astro.props;
     }
 
     .submenu-item {
-      padding: 0.4rem 0.5rem;
+      padding: 0.55rem 0.85rem;
       font-size: var(--text-base);
+      justify-content: center;
     }
 
     .submenu-all {
       display: none;
-    }
-
-    .nav-dropdown {
-      flex-direction: column;
-      align-items: flex-start;
     }
   }
 </style>
