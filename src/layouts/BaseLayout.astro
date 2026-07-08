@@ -4,6 +4,7 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import FloatingWhatsappButton from "../components/FloatingWhatsappButton.astro";
 import type { NavItem } from "../types";
+import { CATEGORY_NAMES, CATEGORY_ORDER } from "../config/categories";
 
 export interface Props {
   title: string;
@@ -100,14 +101,11 @@ const navItems: NavItem[] = [
     <Header
       navItems={navItems}
       transparent={headerTransparent}
-      categories={[
-        { slug: "recordatorios", name: "Recordatorios", href: "/#categoria-recordatorios" },
-        { slug: "porta-inciensos", name: "Porta Inciensos", href: "/#categoria-porta-inciensos" },
-        { slug: "bouquets", name: "Ramos", href: "/#categoria-bouquets" },
-        { slug: "aromaticas", name: "Aromáticas", href: "/#categoria-aromaticas" },
-        { slug: "bandejas", name: "Bandejas", href: "/#categoria-bandejas" },
-        { slug: "decorativas", name: "Decorativas", href: "/#categoria-decorativas" },
-      ]}
+      categories={CATEGORY_ORDER.map((slug) => ({
+        slug,
+        name: CATEGORY_NAMES[slug] || slug,
+        href: `/#categoria-${slug}`,
+      }))}
     />
     <main>
       <slot />

@@ -1,5 +1,6 @@
 ---
 import { SITE_CONFIG } from "../config/site";
+import { CATEGORY_NAMES, CATEGORY_ORDER } from "../config/categories";
 ---
 
 <footer class="footer">
@@ -71,12 +72,9 @@ import { SITE_CONFIG } from "../config/site";
       <div class="footer-links">
         <h4 class="footer-title">Productos</h4>
         <ul>
-          <li><a href="/#categoria-bouquets">Ramos</a></li>
-          <li><a href="/#categoria-decorativas">Decorativas</a></li>
-          <li><a href="/#categoria-aromaticas">Aromáticas</a></li>
-          <li><a href="/#categoria-bandejas">Bandejas</a></li>
-          <li><a href="/#categoria-porta-inciensos">Porta Inciensos</a></li>
-          <li><a href="/#categoria-recordatorios">Recordatorios</a></li>
+          {CATEGORY_ORDER.map((slug) => (
+            <li><a href={`/#categoria-${slug}`}>{CATEGORY_NAMES[slug] || slug}</a></li>
+          ))}
         </ul>
       </div>
 

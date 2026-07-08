@@ -2,12 +2,14 @@
 import Badge from "./Badge.astro";
 import Button from "./Button.astro";
 import type { Product } from "../types";
+import { getCategoryName } from "../config/categories";
 
 export interface Props {
   product: Product;
 }
 
 const { product } = Astro.props;
+const categoryName = getCategoryName(product.category);
 
 const formatPrice = (price: number) =>
   new Intl.NumberFormat("es-CO", {
@@ -38,7 +40,7 @@ const formatPrice = (price: number) =>
     </div>
   </div>
   <div class="card-body">
-    <span class="category">{product.category}</span>
+    <span class="category">{categoryName}</span>
     <h3 class="title">{product.title}</h3>
     <p class="short-description">{product.shortDescription}</p>
     <div class="pricing">

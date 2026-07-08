@@ -9,6 +9,7 @@ import AboutSection from "../components/AboutSection.astro";
 import FAQ from "../components/FAQ.astro";
 import Button from "../components/Button.astro";
 import { getCollection } from "astro:content";
+import { CATEGORY_NAMES, CATEGORY_ORDER } from "../config/categories";
 
 // Get all products
 const products = await getCollection("products");
@@ -37,23 +38,17 @@ const faqData = faqEntries
   }))
   .sort((a, b) => a.order - b.order);
 
-// Group products by category
-const categories = [...new Set(productEntries.map((p) => p.category))];
+// Category display names and order
+const categoryNames: Record<string, string> = CATEGORY_NAMES;
+const categoryOrder = [...CATEGORY_ORDER];
 
-const categoryNames: Record<string, string> = {
-  bouquets: "Ramos",
-  decorativas: "Decorativas",
-  aromaticas: "Aromáticas",
-  bandejas: "Bandejas",
-  "porta-inciensos": "Porta Inciensos",
-  recordatorios: "Recordatorios",
-};
-
-const groupedProducts = categories.map((category) => ({
-  category,
-  name: categoryNames[category] || category,
-  products: productEntries.filter((p) => p.category === category),
-}));
+const groupedProducts = categoryOrder
+  .filter((category) => productEntries.some((p) => p.category === category))
+  .map((category) => ({
+    category,
+    name: categoryNames[category] || category,
+    products: productEntries.filter((p) => p.category === category),
+  }));
 
 // Featured products
 const featuredProducts = productEntries.filter((p) => p.featured);

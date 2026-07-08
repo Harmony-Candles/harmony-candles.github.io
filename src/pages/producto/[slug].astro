@@ -5,6 +5,7 @@ import ProductGrid from "../../components/ProductGrid.astro";
 import Badge from "../../components/Badge.astro";
 import { getCollection } from "astro:content";
 import { SITE_CONFIG } from "../../config/site";
+import { getCategoryName } from "../../config/categories";
 
 export async function getStaticPaths() {
   const products = await getCollection("products");
@@ -125,7 +126,7 @@ const hasGallery = galleryImages.length > 1;
 
         <!-- Info -->
         <div class="product-info reveal-right">
-          <span class="category-label">{data.category}</span>
+          <span class="category-label">{getCategoryName(data.category)}</span>
           <h1 class="product-title">{data.title}</h1>
 
           <div class="pricing">
