@@ -159,9 +159,9 @@ body {
 /* Prevent body scroll when mobile menu is open */
 .no-scroll {
   overflow: hidden !important;
-  position: fixed;
-  width: 100%;
-  height: 100%;
+  position: fixed !important;
+  width: 100% !important;
+  height: 100% !important;
 }
 
 /* Smooth transitions for theme toggles or other future use */

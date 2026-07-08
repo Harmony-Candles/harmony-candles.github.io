@@ -75,9 +75,23 @@ const { navItems, transparent = true, categories = [] } = Astro.props;
   const catalogLink = catalogDropdown?.querySelector(".nav-link");
 
   mobileToggle?.addEventListener("click", () => {
+    const isOpening = !navLinks?.classList.contains("open");
+    if (isOpening) {
+      const scrollY = window.scrollY;
+      document.body.style.top = `-${scrollY}px`;
+      document.body.classList.add("no-scroll");
+    } else {
+      const top = parseInt(document.body.style.top || "0") * -1;
+      document.body.classList.remove("no-scroll");
+      document.body.style.top = "";
+      window.scrollTo(0, top);
+    }
     mobileToggle.classList.toggle("active");
     navLinks?.classList.toggle("open");
-    document.body.classList.toggle("no-scroll");
+    // When opening the mobile menu, always collapse catalog submenu
+    if (isOpening) {
+      catalogDropdown?.classList.remove("dropdown-open");
+    }
   });
 
   // Toggle submenu on mobile when clicking "Catálogo"
@@ -93,15 +107,23 @@ const { navItems, transparent = true, categories = [] } = Astro.props;
 
   bindCatalogToggle();
 
-  // Close menu on link click (except catalog link which toggles submenu)
+  // Close menu on link click (except the parent catalog link which toggles submenu)
   navLinksAnchors?.forEach((link) => {
     link.addEventListener("click", () => {
-      if (link.closest(".nav-dropdown") && window.innerWidth <= 768) {
-        return;
+      // On mobile, only block the parent "Catálogo" link from closing the menu (it toggles submenu instead)
+      // But subcategory links should navigate and close the menu
+      if (window.innerWidth <= 768) {
+        const isParentCatalogLink = link.closest(".nav-dropdown") && link.closest(".nav-dropdown")?.querySelector(".nav-link") === link;
+        if (isParentCatalogLink) {
+          return;
+        }
       }
       mobileToggle?.classList.remove("active");
       navLinks?.classList.remove("open");
+      const top = parseInt(document.body.style.top || "0") * -1;
       document.body.classList.remove("no-scroll");
+      document.body.style.top = "";
+      window.scrollTo(0, top || 0);
     });
   });
 
@@ -351,6 +373,11 @@ const { navItems, transparent = true, categories = [] } = Astro.props;
     transform: rotate(-45deg) translate(5px, -5px);
   }
 
+  /* When mobile menu is open, hamburger/X lines should always be dark */
+  .mobile-toggle.active .hamburger-line {
+    background-color: var(--color-text) !important;
+  }
+
   @media (max-width: 768px) {
     .mobile-toggle {
       display: flex;
@@ -389,7 +416,6 @@ const { navItems, transparent = true, categories = [] } = Astro.props;
 
     /* Submenu on mobile — hidden by default, toggle via .dropdown-open */
     .nav-dropdown .submenu {
-      display: none;
       max-height: 0;
       overflow: hidden;
       transition: max-height 0.3s ease;
@@ -402,13 +428,11 @@ const { navItems, transparent = true, categories = [] } = Astro.props;
       background: transparent;
       backdrop-filter: none;
       padding: 0;
-      width: auto;
+      width: 100%;
     }
 
     .nav-dropdown.dropdown-open .submenu {
-      display: block;
       max-height: 500px;
-      padding: 0.25rem 0 0 0;
     }
 
     .nav-dropdown .dropdown-chevron {
