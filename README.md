@@ -135,7 +135,7 @@ Estas son las categorías existentes. El campo `category` debe usar el **slug** 
 | Slug | Nombre mostrado | Descripción |
 |------|----------------|-------------|
 | `velas-aromaticas` | Velas Aromáticas | Velas con fragancia (eucalipto, menta, palo santo, etc.) |
-| `decorativas` | Velas Decorativas | Velas de diseño para decorar espacios |
+| `velas-decorativas` | Velas Decorativas | Velas de diseño para decorar espacios |
 | `bouquets` | Bouquet de Velas | Ramos y composiciones con velas |
 | `bases` | Bases | Bases y bandejas decorativas para presentar velas |
 | `porta-inciensos` | Porta Inciensos | Porta inciensos de cerámica y otros materiales |

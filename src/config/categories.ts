@@ -4,7 +4,7 @@
  */
 export const CATEGORY_NAMES: Record<string, string> = {
   "velas-aromaticas": "Velas Aromáticas",
-  decorativas: "Velas Decorativas",
+  "velas-decorativas": "Velas Decorativas",
   bouquets: "Bouquet de Velas",
   bases: "Bases",
   "porta-inciensos": "Porta Inciensos",
@@ -18,7 +18,7 @@ export const CATEGORY_NAMES: Record<string, string> = {
  */
 export const CATEGORY_ORDER = [
   "velas-aromaticas",
-  "decorativas",
+  "velas-decorativas",
   "bouquets",
   "bases",
   "porta-inciensos",

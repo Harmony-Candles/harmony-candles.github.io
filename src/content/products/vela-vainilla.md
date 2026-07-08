@@ -1,6 +1,6 @@
 ---
 title: "Vela Artesanal Vainilla & Canela"
-category: "decorativas"
+category: "velas-decorativas"
 price: 35000
 oldPrice: 42000
 featured: true
