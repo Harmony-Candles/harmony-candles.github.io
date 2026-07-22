@@ -1,10 +1,11 @@
 ---
 title: "Vela Armonía"
 category: "velas-aromaticas"
-price: 50000
+price: 40000
+oldPrice: 50000
 featured: true
 bestSeller: false
-isNew: true
+isNew: false
 image: "/images/products/vela-armonia.png"
 gallery:
   - "/images/products/vela-armonia.png"
@@ -16,7 +17,6 @@ features:
   - "Fragancia premium de bambú y flor de loto"
   - "Recipiente artesanal reutilizable"
   - "Mecha de algodón de alta calidad"
-  - "45 a 55 horas de duración aproximada"
   - "Diseñada para rituales de calma y concentración"
   - "Hecha a mano en Colombia"
 seoTitle: "Vela Armonía | Bambú y Flor de Loto | Harmony"
