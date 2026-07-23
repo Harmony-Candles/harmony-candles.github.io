@@ -11,6 +11,7 @@ export const CATEGORY_NAMES: Record<string, string> = {
   sets: "Sets",
   floreros: "Floreros",
   recordatorios: "Recordatorios",
+  regalos: "Regalos",
 };
 
 /**
@@ -25,6 +26,7 @@ export const CATEGORY_ORDER = [
   "sets",
   "floreros",
   "recordatorios",
+  "regalos",
 ] as const;
 
 /**

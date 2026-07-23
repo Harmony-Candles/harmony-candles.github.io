@@ -160,6 +160,7 @@ Estas son las categorías existentes. El campo `category` debe usar el **slug** 
 | `sets` | Sets | Paquetes y sets de productos combinados |
 | `floreros` | Floreros | Floreros decorativos |
 | `recordatorios` | Recordatorios | Velas personalizadas para eventos (bodas, bautizos, etc.) |
+| `regalos` | Regalos | Velas y productos pensados para regalar en ocasiones especiales |
 
 > ⚠️ **Importante:** Si necesitas agregar una categoría nueva, debes:
 > 1. Elegir un slug único (ej: `velas-citricas`)
