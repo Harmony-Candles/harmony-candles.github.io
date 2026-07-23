@@ -8,7 +8,6 @@ export interface Product {
   featured: boolean;
   bestSeller: boolean;
   isNew: boolean;
-  image: string;
   gallery: string[];
   shortDescription: string;
   description: string;

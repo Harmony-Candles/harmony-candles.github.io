@@ -28,15 +28,12 @@
           "type": "boolean",
           "default": false
         },
-        "image": {
-          "type": "string"
-        },
         "gallery": {
           "type": "array",
           "items": {
             "type": "string"
           },
-          "default": []
+          "minItems": 1
         },
         "shortDescription": {
           "type": "string"
@@ -68,7 +65,7 @@
         "title",
         "category",
         "price",
-        "image",
+        "gallery",
         "shortDescription",
         "description"
       ],

@@ -6,7 +6,6 @@ oldPrice: 50000
 featured: true
 bestSeller: false
 isNew: false
-image: "/images/products/vela-armonia.png"
 gallery:
   - "/images/products/vela-armonia.png"
   - "/images/products/vela-armonia2.png"

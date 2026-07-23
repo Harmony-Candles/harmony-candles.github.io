@@ -5,7 +5,6 @@ price: 25000
 featured: false
 bestSeller: true
 isNew: false
-image: "/images/products/vela-roma.png"
 gallery:
   - "/images/products/vela-roma.png"
 shortDescription: "Vela decorativa de cera de soya con delicada textura de corazones y aroma a Peonía con Pimienta Rosada, creada para llenar cualquier espacio de calidez y amor."

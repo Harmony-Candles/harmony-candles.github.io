@@ -43,10 +43,7 @@ const whatsappUrl = `https://wa.me/${SITE_CONFIG.whatsappPhone}?text=${encodeURI
 
 const pageTitle = `${data.title} | Harmony Candle`;
 
-// Build gallery array: include main image first, then any extra gallery images
-const galleryImages = [data.image, ...(data.gallery || [])].filter(
-  (v, i, a) => a.indexOf(v) === i
-);
+const galleryImages = data.gallery;
 const hasGallery = galleryImages.length > 1;
 ---
 
@@ -54,7 +51,7 @@ const hasGallery = galleryImages.length > 1;
   title={pageTitle}
   seoTitle={data.seoTitle || pageTitle}
   seoDescription={data.seoDescription}
-  ogImage={data.image}
+  ogImage={data.gallery[0]}
   ogType="product"
 >
   <article class="product-detail section-anchor">
@@ -74,7 +71,7 @@ const hasGallery = galleryImages.length > 1;
           <div class="main-image img-zoom" data-main-image-container>
             <img
               id="main-product-image"
-              src={data.image}
+              src={data.gallery[0]}
               alt={data.title}
               width="800"
               height="1000"

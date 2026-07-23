@@ -5,7 +5,6 @@ price: 25000
 featured: false
 bestSeller: false
 isNew: false
-image: "/images/products/vela-inspiracion.png"
 gallery:
   - "/images/products/vela-inspiracion.png"
 shortDescription: "Vela decorativa de cera de soya con aroma a Pino Canadiense, diseñada para aportar frescura, concentración y estilo a cualquier espacio."

@@ -5,7 +5,6 @@ price: 18000
 featured: false
 bestSeller: false
 isNew: false
-image: "/images/products/portaincienso-amuleto.png"
 gallery:
   - "/images/products/portaincienso-amuleto.png"
   - "/images/products/portaincienso-amuleto2.png"

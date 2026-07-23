@@ -6,7 +6,6 @@ oldPrice: 40000
 featured: false
 bestSeller: false
 isNew: false
-image: "/images/products/vela-gratitud.png"
 gallery:
   - "/images/products/vela-gratitud.png"
 shortDescription: "Vainilla y sándalo se unen para crear un ambiente de calidez, introspección y bienestar."

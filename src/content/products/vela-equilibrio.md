@@ -5,7 +5,6 @@ price: 30000
 featured: false
 bestSeller: false
 isNew: false
-image: "/images/products/vela-equilibrio.png"
 gallery:
   - "/images/products/vela-equilibrio.png"
   - "/images/products/vela-equilibrio2.png"

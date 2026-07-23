@@ -6,7 +6,6 @@ oldPrice: 50000
 featured: true
 bestSeller: false
 isNew: false
-image: "/images/products/florero-senda.png"
 gallery:
   - "/images/products/florero-senda.png"
   - "/images/products/florero-senda2.png"

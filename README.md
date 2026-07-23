@@ -113,9 +113,9 @@ oldPrice: 55000                                     # Opcional — Precio anteri
 featured: true                                      # Opcional — true = aparece en sección "Destacados" (default: false)
 bestSeller: true                                    # Opcional — true = aparece en sección "Más vendidos" (default: false)
 isNew: false                                        # Opcional — true = muestra badge "Nuevo" (default: false)
-image: "/images/products/tu-imagen.jpg"             # Obligatorio — Ruta de la imagen principal
-gallery:                                            # Opcional — Lista de imágenes adicionales para el detalle
-  - "/images/products/tu-imagen-2.jpg"
+gallery:                                            # Obligatorio — Lista de imágenes del producto. La primera imagen (gallery[0]) se usará como imagen principal en tarjetas y detalle
+  - "/images/products/tu-imagen-principal.jpg"      # Primera imagen = imagen principal
+  - "/images/products/tu-imagen-2.jpg"              # Opcional — Imágenes adicionales para la galería del detalle
   - "/images/products/tu-imagen-3.jpg"
 shortDescription: "Descripción breve para la tarjeta."   # Obligatorio — Texto corto (tarjetas, previstas)
 description: "Descripción larga para la página del producto." # Obligatorio — Texto completo (página de detalle)

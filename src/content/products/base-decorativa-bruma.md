@@ -5,7 +5,6 @@ price: 28000
 featured: false
 bestSeller: true
 isNew: false
-image: "/images/products/base-bruma.png"
 gallery:
   - "/images/products/base-bruma.png"
 shortDescription: "Base decorativa artesanal elaborada en yeso cerámico, con formas orgánicas inspiradas en la naturaleza, ideal para velas, portainciensos, joyas y pequeños objetos especiales."

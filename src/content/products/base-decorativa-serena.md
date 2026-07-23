@@ -6,7 +6,6 @@ oldPrice: 35000
 featured: false
 bestSeller: false
 isNew: false
-image: "/images/products/base-serena.png"
 gallery:
   - "/images/products/base-serena.png"
   - "/images/products/base-serena2.png"

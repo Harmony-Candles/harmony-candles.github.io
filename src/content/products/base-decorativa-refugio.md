@@ -5,7 +5,6 @@ price: 28000
 featured: false
 bestSeller: false
 isNew: false
-image: "/images/products/base-refugio.png"
 gallery:
   - "/images/products/base-refugio.png"
 shortDescription: "Base decorativa artesanal elaborada en yeso cerámico, diseñada para organizar y realzar velas, difusores, perfumes, joyas y otros objetos especiales con un estilo minimalista y elegante."

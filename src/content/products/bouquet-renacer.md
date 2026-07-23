@@ -5,7 +5,6 @@ price: 120000
 featured: true
 bestSeller: true
 isNew: false
-image: "/images/products/bouquet-renacer.png"
 gallery:
   - "/images/products/bouquet-renacer.png"
   - "/images/products/bouquet-renacer2.png"

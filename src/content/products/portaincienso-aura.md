@@ -5,7 +5,6 @@ price: 20000
 featured: false
 bestSeller: false
 isNew: false
-image: "/images/products/portaincienso-aura.png"
 gallery:
   - "/images/products/portaincienso-aura.png"
   - "/images/products/portaincienso-aura2.png"

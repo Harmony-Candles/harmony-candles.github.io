@@ -5,7 +5,6 @@ price: 40000
 featured: false
 bestSeller: false
 isNew: true
-image: "/images/products/vela-alegria.png"
 gallery:
   - "/images/products/vela-alegria.png"
   - "/images/products/vela-alegria2.png"
