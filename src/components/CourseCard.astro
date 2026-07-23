@@ -16,6 +16,8 @@ const formatPrice = (price: number) =>
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
   }).format(price);
+
+const hasPrice = course.price !== undefined;
 ---
 
 <div class="course-card reveal">
@@ -48,7 +50,7 @@ const formatPrice = (price: number) =>
     <h3 class="title">{course.title}</h3>
     <p class="description">{course.description}</p>
     <div class="card-footer">
-      <span class="price">{formatPrice(course.price)}</span>
+      {hasPrice && <span class="price">{formatPrice(course.price!)}</span>}
       <Button
         href={`https://wa.me/${SITE_CONFIG.whatsappPhone}?text=${encodeURIComponent(course.whatsapp || "")}`}
         variant="primary"

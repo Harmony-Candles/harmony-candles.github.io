@@ -1,7 +1,6 @@
 ---
 title: "Curso Online de Velas Artesanales"
 cover: "/images/courses/curso-velas-artesanales.jpg"
-price: 120000
 duration: "Acceso a tu ritmo"
 lessons: 80
 description: "Aprende a elaborar velas artesanales desde cero con un curso práctico y a tu ritmo. Descubre técnicas, materiales y herramientas para crear velas de calidad y dar los primeros pasos hacia tu propio emprendimiento."

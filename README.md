@@ -160,7 +160,7 @@ Crea un archivo `.md` dentro de `src/content/courses/`. El nombre del archivo se
 ---
 title: "Nombre del Curso"                             # Obligatorio — Título del curso
 cover: "/images/courses/tu-imagen.jpg"                # Obligatorio — Ruta de la imagen de portada
-price: 120000                                         # Obligatorio — Precio en COP
+price: 120000                                         # Opcional — Precio en COP (si se omite no se muestra el precio)
 duration: "4 semanas"                                 # Obligatorio — Texto de duración (ej: "4 semanas", "2 meses")
 lessons: 8                                            # Obligatorio — Número de lecciones/clases
 description: "Descripción completa del curso."        # Obligatorio — Texto descriptivo

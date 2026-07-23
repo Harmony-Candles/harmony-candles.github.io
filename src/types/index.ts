@@ -23,7 +23,7 @@ export interface Course {
   slug: string;
   title: string;
   cover: string;
-  price: number;
+  price?: number;
   duration: string;
   lessons: number;
   description: string;
