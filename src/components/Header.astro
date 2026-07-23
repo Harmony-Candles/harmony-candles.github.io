@@ -88,6 +88,10 @@ const { navItems, transparent = true, categories = [] } = Astro.props;
     }
     mobileToggle.classList.toggle("active");
     navLinks?.classList.toggle("open");
+    // Force reflow to ensure flex centering calculates correctly on initial paint
+    if (isOpening) {
+      void navLinks?.offsetHeight;
+    }
     // When opening the mobile menu, always collapse catalog submenu
     if (isOpening) {
       catalogDropdown?.classList.remove("dropdown-open");
@@ -397,8 +401,9 @@ const { navItems, transparent = true, categories = [] } = Astro.props;
       gap: var(--space-lg);
       opacity: 0;
       visibility: hidden;
-      transition: all var(--transition-base);
+      transition: opacity 0.3s ease, visibility 0.3s ease;
       z-index: calc(var(--z-overlay) - 1);
+      text-align: center;
     }
 
     .nav-links.open {
@@ -410,19 +415,34 @@ const { navItems, transparent = true, categories = [] } = Astro.props;
       padding-bottom: var(--space-xl);
     }
 
+    .nav-links > li {
+      display: block;
+      width: 100%;
+    }
+
     .nav-link {
       font-size: var(--text-xl);
       color: var(--color-text) !important;
-      text-align: center;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
     }
 
-    /* Submenu on mobile — hidden by default, toggle via .dropdown-open */
+    /* --- Submenu on mobile --- */
+    .nav-dropdown {
+      position: relative !important;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
     .nav-dropdown .submenu {
       max-height: 0;
       overflow: hidden;
       transition: max-height 0.3s ease;
-      position: static;
-      transform: none;
+      position: static !important;
+      transform: none !important;
+      left: auto !important;
       opacity: 1;
       visibility: visible;
       box-shadow: none;
@@ -430,7 +450,7 @@ const { navItems, transparent = true, categories = [] } = Astro.props;
       background: transparent;
       backdrop-filter: none;
       padding: 0;
-      width: 100%;
+      width: auto;
     }
 
     .nav-dropdown.dropdown-open .submenu {
@@ -439,19 +459,6 @@ const { navItems, transparent = true, categories = [] } = Astro.props;
 
     .nav-dropdown .dropdown-chevron {
       display: inline-block;
-    }
-
-    .nav-links li {
-      width: 100%;
-      text-align: center;
-      display: block;
-    }
-
-    .nav-dropdown {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 100%;
     }
 
     .nav-dropdown .nav-link {
@@ -465,10 +472,12 @@ const { navItems, transparent = true, categories = [] } = Astro.props;
     }
 
     .submenu-item {
-      padding: 0.55rem 0;
+      padding: 0.55rem var(--space-lg);
       font-size: var(--text-base);
       justify-content: center;
       text-align: center;
+      display: flex;
+      align-items: center;
     }
 
     .submenu-item .submenu-dot {
