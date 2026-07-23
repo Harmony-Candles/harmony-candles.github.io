@@ -49,6 +49,7 @@ const hasPrice = course.price !== undefined;
   <div class="card-body">
     <h3 class="title">{course.title}</h3>
     <p class="description">{course.description}</p>
+    {course.nota && <p class="nota">{course.nota}</p>}
     <div class="card-footer">
       {hasPrice && <span class="price">{formatPrice(course.price!)}</span>}
       <Button
@@ -146,6 +147,17 @@ const hasPrice = course.price !== undefined;
     margin-top: var(--space-sm);
     padding-top: var(--space-sm);
     border-top: 1px solid var(--color-border-light);
+  }
+
+  .nota {
+    font-size: var(--text-xs);
+    color: var(--color-text-light);
+    font-style: italic;
+    line-height: 1.5;
+    padding: var(--space-xs) var(--space-sm);
+    background: var(--color-bg-alt);
+    border-radius: var(--radius-sm);
+    margin: 0;
   }
 
   .price {

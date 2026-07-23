@@ -28,6 +28,9 @@
         "seoDescription": {
           "type": "string"
         },
+        "nota": {
+          "type": "string"
+        },
         "whatsapp": {
           "type": "string"
         },
