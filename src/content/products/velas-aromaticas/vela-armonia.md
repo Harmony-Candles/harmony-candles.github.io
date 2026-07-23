@@ -7,8 +7,8 @@ featured: true
 bestSeller: false
 isNew: false
 gallery:
-  - "/images/products/vela-armonia.png"
-  - "/images/products/vela-armonia2.png"
+  - "/images/products/velas-aromaticas/vela-armonia.png"
+  - "/images/products/velas-aromaticas/vela-armonia2.png"
 shortDescription: "Una mezcla de bambú y flor de loto que crea un ambiente de calma, concentración y bienestar."
 description: "La Vela Armonía fue creada para acompañar esos pequeños rituales que nos ayudan a conectar con nosotros mismos. Su delicada combinación de bambú y flor de loto llena el espacio con un aroma limpio, fresco y sutilmente floral que invita a la tranquilidad y la claridad mental. Es la compañera ideal para tus sesiones de journaling, lectura, planificación del día o cualquier momento en el que quieras hacer una pausa y disfrutar del presente. Elaborada artesanalmente con cera de soja y vertida a mano en un recipiente de diseño minimalista, pensado para ser reutilizado una vez la vela haya terminado."
 features:

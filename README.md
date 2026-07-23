@@ -42,7 +42,14 @@ harmony-candles.github.io/
 │   │   └── harmony-iso-logo.jpeg
 │   ├── images/                   # Imágenes del sitio
 │   │   ├── hero/
-│   │   ├── products/
+│   │   ├── products/             # Organizadas por categoría
+│   │   │   ├── bases/
+│   │   │   ├── bouquets/
+│   │   │   ├── floreros/
+│   │   │   ├── porta-inciensos/
+│   │   │   ├── regalos/
+│   │   │   ├── velas-aromaticas/
+│   │   │   └── velas-decorativas/
 │   │   ├── courses/
 │   │   ├── about/
 │   │   ├── campaigns/
@@ -67,7 +74,14 @@ harmony-candles.github.io/
 │   │   └── FloatingWhatsappButton.astro  # Botón flotante de WhatsApp
 │   ├── content/                  # Content Collections
 │   │   ├── config.ts             # Esquemas de colecciones
-│   │   ├── products/             # Productos (archivos .md)
+│   │   ├── products/             # Productos (archivos .md organizados por categoría)
+│   │   │   ├── bases/
+│   │   │   ├── bouquets/
+│   │   │   ├── floreros/
+│   │   │   ├── porta-inciensos/
+│   │   │   ├── regalos/
+│   │   │   ├── velas-aromaticas/
+│   │   │   └── velas-decorativas/
 │   │   ├── courses/              # Cursos (archivos .md)
 │   │   └── faq/                  # Preguntas frecuentes (.md)
 │   ├── layouts/
@@ -76,7 +90,7 @@ harmony-candles.github.io/
 │   │   ├── index.astro           # Página principal
 │   │   ├── 404.astro             # Página 404
 │   │   └── producto/
-│   │       └── [slug].astro      # Página individual de producto
+│   │       └── [...slug].astro   # Página individual de producto (slug con categoría)
 │   ├── styles/
 │   │   ├── variables.css         # Variables CSS
 │   │   ├── reset.css             # Reset CSS
@@ -87,6 +101,10 @@ harmony-candles.github.io/
 │   │   └── index.ts              # Tipos TypeScript
 │   └── utils/
 │       └── reveal.ts             # Utilidades de animación
+├── scripts/
+│   ├── convert-logos.mjs
+│   ├── reorganize-images.mjs
+│   └── reorganize-content.mjs
 ├── astro.config.mjs              # Configuración de Astro
 ├── tsconfig.json                 # Configuración de TypeScript
 └── package.json
@@ -100,7 +118,7 @@ Toda la gestión de contenido se realiza a través de **Astro Content Collection
 
 ### 📦 Agregar un producto
 
-Crea un archivo `.md` dentro de `src/content/products/`. El nombre del archivo (sin extensión) se usará como **slug** de la URL (ej: `vela-vainilla.md` → `/producto/vela-vainilla`).
+Crea un archivo `.md` dentro de la subcarpeta de categoría correspondiente en `src/content/products/`. El nombre del archivo (sin extensión) se usará como **slug** de la URL, precedido por la categoría (ej: `velas-aromaticas/vela-vainilla.md` → `/producto/velas-aromaticas/vela-vainilla`).
 
 #### Esquema completo de campos
 
@@ -114,9 +132,9 @@ featured: true                                      # Opcional — true = aparec
 bestSeller: true                                    # Opcional — true = aparece en sección "Más vendidos" (default: false)
 isNew: false                                        # Opcional — true = muestra badge "Nuevo" (default: false)
 gallery:                                            # Obligatorio — Lista de imágenes del producto. La primera imagen (gallery[0]) se usará como imagen principal en tarjetas y detalle
-  - "/images/products/tu-imagen-principal.jpg"      # Primera imagen = imagen principal
-  - "/images/products/tu-imagen-2.jpg"              # Opcional — Imágenes adicionales para la galería del detalle
-  - "/images/products/tu-imagen-3.jpg"
+  - "/images/products/<categoria>/tu-imagen-principal.jpg"      # Primera imagen = imagen principal
+  - "/images/products/<categoria>/tu-imagen-2.jpg"              # Opcional — Imágenes adicionales para la galería del detalle
+  - "/images/products/<categoria>/tu-imagen-3.jpg"
 shortDescription: "Descripción breve para la tarjeta."   # Obligatorio — Texto corto (tarjetas, previstas)
 description: "Descripción larga para la página del producto." # Obligatorio — Texto completo (página de detalle)
 features:                                           # Opcional — Lista de características / puntos clave
@@ -195,11 +213,84 @@ Coloca las imágenes del proyecto en las siguientes carpetas:
 | Carpeta | Uso |
 |---------|-----|
 | `public/images/hero/` | Imagen de fondo del Hero |
-| `public/images/products/` | Fotos de productos |
+| `public/images/products/` | Fotos de productos (organizadas en subcarpetas por categoría) |
 | `public/images/courses/` | Portadas de cursos |
 | `public/images/about/` | Imagen de la sección Sobre Harmony |
 | `public/images/campaigns/` | Imágenes de campañas |
 | `public/images/gallery/` | Galería adicional |
+
+### Organización de archivos de contenido
+
+Los archivos `.md` de productos también están organizados por categoría dentro de `src/content/products/`:
+
+```
+src/content/products/
+├── bases/
+│   ├── base-decorativa-bruma.md
+│   ├── base-decorativa-refugio.md
+│   └── base-decorativa-serena.md
+├── bouquets/
+│   └── bouquet-renacer.md
+├── floreros/
+│   └── florero-senda.md
+├── porta-inciensos/
+│   ├── portaincienso-amuleto.md
+│   └── portaincienso-aura.md
+├── regalos/
+│   └── cinco-minutos-mas.md
+├── velas-aromaticas/
+│   ├── vela-alegria.md
+│   ├── vela-armonia.md
+│   ├── vela-equilibrio.md
+│   └── vela-gratitud.md
+└── velas-decorativas/
+    ├── vela-inspiracion.md
+    └── vela-roma.md
+```
+
+Al crear un nuevo producto, coloca el archivo `.md` dentro de la carpeta de su categoría. El slug se genera automáticamente incluyendo la categoría (ej: `velas-aromaticas/vela-vainilla`).
+
+#### Script de reorganización de contenido
+
+Si necesitas reorganizar los archivos `.md` por categoría, ejecuta:
+
+```bash
+node scripts/reorganize-content.mjs
+```
+
+### Organización de imágenes de productos
+
+Las imágenes de productos están organizadas en subdirectorios por categoría dentro de `public/images/products/`:
+
+| Subdirectorio | Categoría |
+|---------------|-----------|
+| `bases/` | Bases decorativas |
+| `bouquets/` | Bouquet de velas |
+| `floreros/` | Floreros |
+| `porta-inciensos/` | Porta inciensos |
+| `regalos/` | Regalos |
+| `velas-aromaticas/` | Velas aromáticas |
+| `velas-decorativas/` | Velas decorativas |
+
+#### Ruta en los archivos .md
+
+Al agregar o editar un producto, la ruta de la imagen debe incluir la categoría:
+
+```markdown
+gallery:
+  - "/images/products/velas-aromaticas/mi-vela.png"
+  - "/images/products/velas-aromaticas/mi-vela-2.png"
+```
+
+#### Script de reorganización
+
+Si alguna vez las imágenes se desordenan o necesitas reorganizarlas, ejecuta:
+
+```bash
+node scripts/reorganize-images.mjs
+```
+
+Este script mueve cada imagen a su carpeta de categoría correspondiente y actualiza automáticamente las rutas en todos los archivos `.md` de productos.
 
 ## 🚢 Despliegue
 

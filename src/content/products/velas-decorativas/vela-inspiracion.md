@@ -6,7 +6,7 @@ featured: false
 bestSeller: false
 isNew: false
 gallery:
-  - "/images/products/vela-inspiracion.png"
+  - "/images/products/velas-decorativas/vela-inspiracion.png"
 shortDescription: "Vela decorativa de cera de soya con aroma a Pino Canadiense, diseñada para aportar frescura, concentración y estilo a cualquier espacio."
 description: "Una vela decorativa que combina diseño minimalista y bienestar. Elaborada artesanalmente con cera de soya 100% natural, su forma cúbica con textura de burbujas convierte cada pieza en un elemento decorativo que aporta personalidad y armonía a cualquier ambiente. Su aroma a Pino Canadiense llena el espacio con notas limpias, frescas y renovadoras, creando una atmósfera ideal para trabajar, estudiar, leer o simplemente disfrutar de un entorno más agradable. Diseñada para quienes creen que los pequeños detalles transforman los espacios."
 features:

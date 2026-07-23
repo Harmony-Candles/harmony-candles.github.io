@@ -6,8 +6,8 @@ featured: false
 bestSeller: false
 isNew: true
 gallery:
-  - "/images/products/vela-alegria.png"
-  - "/images/products/vela-alegria2.png"
+  - "/images/products/velas-aromaticas/vela-alegria.png"
+  - "/images/products/velas-aromaticas/vela-alegria2.png"
 shortDescription: "Una explosión de maracuyá y mandarina que llena tu hogar de frescura, energía y momentos felices."
 description: "La Vela Alegría fue creada para iluminar tus espacios con una fragancia vibrante y llena de vida. La dulzura tropical del maracuyá se combina con el toque cítrico y luminoso de la mandarina para crear un aroma fresco, alegre y revitalizante que transforma cualquier rincón en un lugar acogedor. Es perfecta para comenzar el día con buena energía, acompañar tus momentos de trabajo, compartir con quienes más quieres o simplemente disfrutar de una atmósfera cálida y positiva. Elaborada artesanalmente con cera de soja y presentada en un recipiente reutilizable de yeso cerámico, cada pieza es hecha a mano con dedicación para convertirse en un elemento decorativo que seguirá acompañando tu hogar incluso después de terminar la vela."
 features:

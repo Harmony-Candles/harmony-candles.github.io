@@ -6,7 +6,7 @@ featured: false
 bestSeller: false
 isNew: false
 gallery:
-  - "/images/products/base-refugio.png"
+  - "/images/products/bases/base-refugio.png"
 shortDescription: "Base decorativa artesanal elaborada en yeso cerámico, diseñada para organizar y realzar velas, difusores, perfumes, joyas y otros objetos especiales con un estilo minimalista y elegante."
 description: "Todo aquello que te transmite paz merece un lugar especial. Refugio es una base decorativa artesanal creada para dar protagonismo a esos pequeños detalles que hacen de tu hogar un espacio cálido, armonioso y lleno de significado. Su diseño limpio, minimalista y atemporal se adapta con facilidad a cualquier ambiente, convirtiéndose en el complemento perfecto para velas, difusores, perfumes, joyas o los objetos que forman parte de tus rituales cotidianos. Elaborada cuidadosamente a mano en yeso cerámico, Refugio no solo organiza, sino que también aporta equilibrio y belleza a cada rincón. Porque la armonía también comienza en los pequeños espacios."
 features:
