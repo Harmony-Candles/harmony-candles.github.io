@@ -28,6 +28,9 @@
         "seoDescription": {
           "type": "string"
         },
+        "link": {
+          "type": "string"
+        },
         "nota": {
           "type": "string"
         },

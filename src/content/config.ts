@@ -32,6 +32,7 @@ const coursesCollection = defineCollection({
     description: z.string(),
     seoTitle: z.string().optional(),
     seoDescription: z.string().optional(),
+    link: z.string().optional(),
     nota: z.string().optional(),
     whatsapp: z.string().optional(),
   }),

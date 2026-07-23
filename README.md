@@ -166,8 +166,9 @@ lessons: 8                                            # Obligatorio — Número 
 description: "Descripción completa del curso."        # Obligatorio — Texto descriptivo
 seoTitle: "Título SEO | Harmony Candle"                # Opcional — Meta title personalizado
 seoDescription: "Meta description para SEO."           # Opcional — Meta description personalizada
+link: "https://go.hotmart.com/..."                      # Opcional — URL externa del curso (Hotmart, etc.). Si se define, la imagen y el botón "Comprar" redirigen a este enlace
 nota: "📌 Nota importante sobre el curso"               # Opcional — Mensaje informativo que se muestra en la tarjeta del curso (ej: "Este curso es impartido por un instructor aliado")
-whatsapp: "Mensaje personalizado para WhatsApp"        # Opcional — Texto para botón de WhatsApp
+whatsapp: "Mensaje personalizado para WhatsApp"        # Opcional — Texto predefinido para el botón "Más info" de WhatsApp
 ---
 ```
 

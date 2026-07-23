@@ -29,6 +29,7 @@ export interface Course {
   description: string;
   seoTitle?: string;
   seoDescription?: string;
+  link?: string;
   nota?: string;
   whatsapp?: string;
 }
