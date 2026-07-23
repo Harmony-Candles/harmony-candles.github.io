@@ -5,6 +5,7 @@ import Footer from "../components/Footer.astro";
 import FloatingWhatsappButton from "../components/FloatingWhatsappButton.astro";
 import type { NavItem } from "../types";
 import { CATEGORY_NAMES, CATEGORY_ORDER } from "../config/categories";
+import { getCollection } from "astro:content";
 
 export interface Props {
   title: string;
@@ -29,6 +30,10 @@ const {
 const pageTitle = seoTitle || title;
 const pageDescription = seoDescription || description;
 
+// Get all products to determine which categories have content
+const allProducts = await getCollection("products");
+const activeCategories = new Set(allProducts.map((p) => p.data.category));
+
 const navItems: NavItem[] = [
   { label: "Inicio", href: "/#hero" },
   { label: "Catálogo", href: "/#catalogo" },
@@ -37,6 +42,9 @@ const navItems: NavItem[] = [
   { label: "FAQ", href: "/#faq" },
   { label: "Contacto", href: "/#contacto" },
 ];
+
+// Only show categories that have at least one product
+const activeCategorySlugs = CATEGORY_ORDER.filter((slug) => activeCategories.has(slug));
 ---
 
 <!doctype html>
@@ -101,7 +109,7 @@ const navItems: NavItem[] = [
     <Header
       navItems={navItems}
       transparent={headerTransparent}
-      categories={CATEGORY_ORDER.map((slug) => ({
+      categories={activeCategorySlugs.map((slug) => ({
         slug,
         name: CATEGORY_NAMES[slug] || slug,
         href: `/#categoria-${slug}`,
